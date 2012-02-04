@@ -22,30 +22,15 @@ public class LisaaDrinkkiServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LisaaDrinkkiServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LisaaDrinkkiServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-             */
-        } finally {            
-            out.close();
-        }
     }
 
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Drinkkiresepti drinkki = new Drinkkiresepti("Mojito");
-        request.setAttribute("juoma", drinkki.getNimi());
+        
+        if (request.getSession().getAttribute("tunnus") != null) // jos ei ole kirjautunut sisälle, ei pysty lisäämään drinkkiä
+            request.setAttribute("lisays", "lisaa");
         
         request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista
         
@@ -59,21 +44,36 @@ public class LisaaDrinkkiServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String nimi = request.getParameter("nimi"); // otetaan lomakkeesta nimi
+        if (!onKirjautunut(request,response)) {
+            return;
+        }
+        String nimi = request.getParameter("nimi"); // otetaan lomakkeesta drinkin nimi
         String kuvaus = request.getParameter("kuvaus"); // kuvaus
         String ohjeet = request.getParameter("ohjeet"); // ohjeet
         
-        String[] arvo = request.getParameterValues("arvo"); // arvosana
-        int arvosana = Integer.parseInt(arvo[0]);
+        if (request.getParameterValues("arvo") != null) {
+            String[] arvo = request.getParameterValues("arvo"); // arvosana
+            int arvosana = Integer.parseInt(arvo[0]);
+        }
         
-        if (nimi != null && ohjeet != null) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
+        if (nimi.length() > 0 && ohjeet.length() > 0) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
             Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet); 
             rekisteri.lisaaDrinkki(resepti); // ja lisätään se tietokantaan, lopuksi
             response.sendRedirect(request.getRequestURI()); // ohjataan pyyntö samalle sivulle -> doGet suoritetaan
         } else {
-            response.sendRedirect(request.getContextPath()+"/LisaaDrinkki"); // jos tietoja puuttuu, ohjataan samalle sivulle 
+            response.sendRedirect(request.getRequestURI()); // jos tietoja puuttuu, ohjataan samalle sivulle
+            return;
         }
         
+    }
+    
+    private boolean onKirjautunut(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        if (request.getSession().getAttribute("tunnus") == null) { // jos istunnon aikana ei ole kirjauduttu sisään
+            response.sendRedirect(request.getContextPath()+"/Login"); // ohjataan takaisin kirjautumissivulle
+            return false;
+        } else
+            return true;
     }
     
 }

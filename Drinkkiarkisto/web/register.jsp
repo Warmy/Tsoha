@@ -13,7 +13,7 @@ ul#list-nav {
 list-style:none;
 margin:0px;
 padding:0;
-width:530px
+width:700px
 }
 
 ul#list-nav li {
@@ -49,6 +49,7 @@ color:#000
             <li><a href="/Drinkkiarkisto/LisaaDrinkki">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
+            <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
         </ul>
         
         <br/>

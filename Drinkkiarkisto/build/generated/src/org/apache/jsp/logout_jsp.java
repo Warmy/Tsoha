@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class logout_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -78,10 +78,9 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("}\n");
       out.write("</style>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <title>Login</title>\n");
+      out.write("        <title>Logout</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        <h1>Kirjaudu sisään</h1>\n");
       out.write("        \n");
       out.write("        <ul id=\"list-nav\">\n");
       out.write("            <li><a href=\"lista.jsp\">Etusivu</a></li>\n");
@@ -92,30 +91,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </ul>\n");
       out.write("        \n");
       out.write("        <br/>\n");
-      out.write("        <br/>\n");
-      out.write("        <br/>\n");
-      out.write("                    \n");
-      out.write("        <form action=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${pageContext.request.contextPath}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("/Login\" \n");
-      out.write("            method=\"POST\">\n");
-      out.write("            Käyttäjätunnus: </br><input type=\"text\" name=\"tunnus\" /><br/>\n");
-      out.write("            Salasana: </br><input type=\"password\" name=\"salasana\"<br/></br>\n");
-      out.write("            <input type=\"submit\" value=\"Kirjaudu sisään\"/>    \n");
-      out.write("        </form>\n");
-      out.write("         <br/>   \n");
-      out.write("              \n");
-      out.write("         <!-- näytetään virheilmoitus, jos rekisteröinti meni pieleen //-->\n");
-      out.write("              \n");
-      out.write("    <c:if test=\"");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${not empty virhe}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("\">\n");
-      out.write("        <font color=\"red\">");
-      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${virhe}", java.lang.String.class, (PageContext)_jspx_page_context, null));
-      out.write("</font>    \n");
-      out.write("    </c:if>\n");
-      out.write("    \n");
-      out.write("    \n");
+      out.write("        <h1>Kiitos!</h1>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

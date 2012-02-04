@@ -13,7 +13,7 @@ ul#list-nav {
 list-style:none;
 margin:0px;
 padding:0;
-width:530px
+width:700px
 }
 
 ul#list-nav li {
@@ -49,23 +49,33 @@ color:#000
             <li><a href="/Drinkkiarkisto/LisaaDrinkki">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
+            <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
         </ul>
         
         <br/>
         <br/>
         <br/>
               <!-- listaa drinkit //-->   
-            <c:if test="${not empty juomat}">                        
+            <c:if test="${not empty juomat}">
+                <table border="1" width="300" cellpadding="3" cellspacing="1">
+                    <tr>
+                        <th>Nimi</th>
+                        <th>Id</th>
+                    </tr>
             <c:forEach var="drinkki" items="${juomat}">
-                Drinkki: ${drinkki.nimi}</br>
+                <tr>
+                    <td>${drinkki.nimi}</td>
+                    <td>${drinkki.id}</td>
+                </tr>
             </c:forEach>
+                </table>
             </c:if>
     <br/>
-    
-    ${juoma}
     </br>
-    <!-- Reseptilomake, jossa annetaan nimi, kuvaus, ohjeet ja arvosana -->
-    <h2>Lisää resepti</h2>
+    <!-- Reseptilomake, jossa annetaan nimi, kuvaus, ohjeet ja arvosana.
+         Reseptin voi lisää vain, jos on kirjautunut. -->
+    <c:if test="${not empty lisays}">
+        <h2>Lisää resepti</h2>
         <form action="${pageContext.request.contextPath}/LisaaDrinkki"
               method="post">            
             Drinkin nimi: </br> <input type="text" name="nimi"/> <br/>             
@@ -78,5 +88,6 @@ color:#000
             <input type="radio" name="arvo" value="5" /> 5 <br/><br/>
             <input type="submit" value="Lisää resepti"/>
             </form>
+    </c:if>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : login
-    Created on : Feb 4, 2012, 9:27:47 PM
+    Document   : logout
+    Created on : Feb 5, 2012, 12:56:51 AM
     Author     : Keni
 --%>
 
@@ -39,10 +39,9 @@ color:#000
 }
 </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Logout</title>
     </head>
     <body>
-        <h1>Kirjaudu sisään</h1>
         
         <ul id="list-nav">
             <li><a href="lista.jsp">Etusivu</a></li>
@@ -53,23 +52,6 @@ color:#000
         </ul>
         
         <br/>
-        <br/>
-        <br/>
-                    
-        <form action="${pageContext.request.contextPath}/Login" 
-            method="POST">
-            Käyttäjätunnus: </br><input type="text" name="tunnus" /><br/>
-            Salasana: </br><input type="password" name="salasana"<br/></br>
-            <input type="submit" value="Kirjaudu sisään"/>    
-        </form>
-         <br/>   
-              
-         <!-- näytetään virheilmoitus, jos rekisteröinti meni pieleen //-->
-              
-    <c:if test="${not empty virhe}">
-        <font color="red">${virhe}</font>    
-    </c:if>
-    
-    
+        <h1>Kiitos!</h1>
     </body>
 </html>
