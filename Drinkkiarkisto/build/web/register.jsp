@@ -46,7 +46,7 @@ color:#000
                 
         <ul id="list-nav">
             <li><a href="lista.jsp">Etusivu</a></li>
-            <li><a href="selaa.jsp">Selaa</a></li>
+            <li><a href="/Drinkkiarkisto/LisaaDrinkki">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
         </ul>
@@ -71,7 +71,7 @@ color:#000
               ${tunnus}
               </br>   
               
-              <!-- listaa käyttäjät //-->
+              <!-- listaa käyttäjät, jos heitä on //-->
               <h2>Käyttäjät</h2>
             <c:if test="${not empty kayttajat}">                        
             <c:forEach var="kayttaja" items="${kayttajat}">

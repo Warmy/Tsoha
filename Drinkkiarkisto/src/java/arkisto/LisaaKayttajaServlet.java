@@ -30,7 +30,7 @@ public class LisaaKayttajaServlet extends HttpServlet {
         Kayttaja kayttaja = new Kayttaja("Jopi", "Jalkapuoli");
         request.setAttribute("tunnus", kayttaja.getTunnus());
         
-        request.setAttribute("kayttajat", new Rekisteri().getKayttajat());
+        request.setAttribute("kayttajat", new Rekisteri().getKayttajat()); // annetaan pyynnön attribuutiksi lista käyttäjistä
         
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("register.jsp");

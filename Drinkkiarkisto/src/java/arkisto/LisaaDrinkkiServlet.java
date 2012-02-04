@@ -1,0 +1,79 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package arkisto;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author Keni
+ */
+public class LisaaDrinkkiServlet extends HttpServlet {
+
+    private Rekisteri rekisteri = new Rekisteri();
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LisaaDrinkkiServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LisaaDrinkkiServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+             */
+        } finally {            
+            out.close();
+        }
+    }
+
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Drinkkiresepti drinkki = new Drinkkiresepti("Mojito");
+        request.setAttribute("juoma", drinkki.getNimi());
+        
+        request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista
+        
+        RequestDispatcher dispatcher =
+                request.getRequestDispatcher("drinkkilista.jsp"); // ohjataan pyyntö drinkkilista.jsp-sivulle
+        dispatcher.forward(request, response);
+    }
+
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String nimi = request.getParameter("nimi"); // otetaan lomakkeesta nimi
+        String kuvaus = request.getParameter("kuvaus"); // kuvaus
+        String ohjeet = request.getParameter("ohjeet"); // ohjeet
+        
+        String[] arvo = request.getParameterValues("arvo"); // arvosana
+        int arvosana = Integer.parseInt(arvo[0]);
+        
+        if (nimi != null && ohjeet != null) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
+            Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet); 
+            rekisteri.lisaaDrinkki(resepti); // ja lisätään se tietokantaan, lopuksi
+            response.sendRedirect(request.getRequestURI()); // ohjataan pyyntö samalle sivulle -> doGet suoritetaan
+        } else {
+            response.sendRedirect(request.getContextPath()+"/LisaaDrinkki"); // jos tietoja puuttuu, ohjataan samalle sivulle 
+        }
+        
+    }
+    
+}

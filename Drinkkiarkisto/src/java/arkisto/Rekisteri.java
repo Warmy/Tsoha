@@ -29,6 +29,7 @@ public class Rekisteri {
         return emf.createEntityManager();
     }
     
+    // lisää uuden käyttäjän tietokantaan
     public void lisaaKayttaja(Kayttaja uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -36,6 +37,8 @@ public class Rekisteri {
         em.getTransaction().commit();     
     }
     
+    
+    // palauttaa listan kaikista käyttäjistä
     public List<Kayttaja> getKayttajat() {
         em = getEntityManager();
         return em.createQuery("SELECT u FROM Kayttaja u").getResultList();
@@ -45,6 +48,21 @@ public class Rekisteri {
     public Kayttaja haeKayttaja(String tunnus) {
         em = getEntityManager();
         return em.find(Kayttaja.class, tunnus); // etsii kayttaja-luokan ilmentymän tämän tunnuksella
+    }
+    
+    
+    // lisää uuden drinkin tietokantaan
+    public void lisaaDrinkki(Drinkkiresepti uusi) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        em.persist(uusi);
+        em.getTransaction().commit();     
+    }
+
+    // palauttaa listan kaikista juomista
+    public List<Drinkkiresepti> getJuomat() {
+        em = getEntityManager();
+        return em.createQuery("SELECT d FROM Drinkkiresepti d").getResultList();
     }
     
 }

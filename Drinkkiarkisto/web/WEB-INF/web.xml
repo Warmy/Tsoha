@@ -8,6 +8,10 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>arkisto.LoginServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LisaaDrinkkiServlet</servlet-name>
+        <servlet-class>arkisto.LisaaDrinkkiServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LisaaDrinkkiServlet</servlet-name>
+        <url-pattern>/LisaaDrinkki</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
