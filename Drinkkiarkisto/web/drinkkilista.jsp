@@ -57,6 +57,15 @@ color:#000
         <br/>
               <!-- listaa drinkit //-->   
             <c:if test="${not empty juomat}">
+                
+                <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit -->
+                <form action="${pageContext.request.contextPath}/LisaaDrinkki"
+                      name="myForm"
+                      method="GET">
+                <input type="hidden" name="sort" value="myForm"/>
+                <input type="submit" value="Järjestä" style="width:170px">
+                </form>
+                      
                 <table border="1" width="300" cellpadding="3" cellspacing="1">
                     <tr>
                         <th>Nimi</th>
@@ -77,7 +86,7 @@ color:#000
     <c:if test="${not empty lisays}">
         <h2>Lisää resepti</h2>
         <form action="${pageContext.request.contextPath}/LisaaDrinkki"
-              method="post">            
+              method="post">
             Drinkin nimi: </br> <input type="text" name="nimi"/> <br/>             
             Kuvaus: </br> <textarea name="kuvaus"></textarea> <br/>
             Ohjeet: </br> <textarea name="ohjeet"></textarea> <br/>

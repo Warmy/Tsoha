@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LisaaDrinkkiServlet extends HttpServlet {
 
     private Rekisteri rekisteri = new Rekisteri();
+    private boolean jarjestys = true;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,13 +33,15 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         if (request.getSession().getAttribute("tunnus") != null) // jos ei ole kirjautunut sisälle, ei pysty lisäämään drinkkiä
             request.setAttribute("lisays", "lisaa");
         
-        request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista
+        if (request.getParameter("sort") == null)
+            request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista
+        else
+            jarjestaLista(request);
         
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("drinkkilista.jsp"); // ohjataan pyyntö drinkkilista.jsp-sivulle
         dispatcher.forward(request, response);
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -74,6 +77,19 @@ public class LisaaDrinkkiServlet extends HttpServlet {
             return false;
         } else
             return true;
+    }
+
+    // järjestää drinkkilistan nimen perusteella nousevaan tai laskevaan järjestykseen
+    private void jarjestaLista(HttpServletRequest request)
+        throws ServletException, IOException {
+        
+        if (request.getParameter("sort") != null && jarjestys) { // jos painettiin, sort-nappia, järjestetään
+            request.setAttribute("juomat", new Rekisteri().getOrderedJuomat()); // juomat laskevasti
+            jarjestys = false;
+        } else if (request.getParameter("sort") != null && !jarjestys) { // jos juomat on jo järjestetty laskevasti ja painetaan
+            request.setAttribute("juomat", new Rekisteri().getJuomat()); // nappia sort, palautetaan alkuperäinen järjestys
+            jarjestys = true;
+        }  
     }
     
 }

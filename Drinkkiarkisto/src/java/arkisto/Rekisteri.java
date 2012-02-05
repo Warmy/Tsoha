@@ -65,4 +65,10 @@ public class Rekisteri {
         return em.createQuery("SELECT d FROM Drinkkiresepti d").getResultList();
     }
     
+    // järjestetty lista juomista
+    public List<Drinkkiresepti> getOrderedJuomat() {
+        em = getEntityManager();
+        return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.nimi desc").getResultList();
+    }
+    
 }
