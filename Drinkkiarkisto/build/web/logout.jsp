@@ -45,7 +45,7 @@ color:#000
         
         <ul id="list-nav">
             <li><a href="lista.jsp">Etusivu</a></li>
-            <li><a href="/Drinkkiarkisto/LisaaDrinkki">Selaa</a></li>
+            <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>

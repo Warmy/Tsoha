@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(); // jos kirjautumistiedot oikein, luodaan istunto
             session.setAttribute("tunnus", tunnus); // asetetaan attribuutiksi annettu tunnus
             
-            response.sendRedirect(request.getContextPath()+"/LisaaDrinkki");
+            response.sendRedirect(request.getContextPath()+"/Lista");
             // lähetä tiedot vastaukseen ja palaa metodikutsusta
             response.setHeader("tunnus", tunnus);
             response.flushBuffer();

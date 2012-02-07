@@ -46,7 +46,7 @@ color:#000
                 
         <ul id="list-nav">
             <li><a href="lista.jsp">Etusivu</a></li>
-            <li><a href="/Drinkkiarkisto/LisaaDrinkki">Selaa</a></li>
+            <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
@@ -55,12 +55,14 @@ color:#000
         <br/>
         <br/>
         <br/>
+        <p> Luo käyttäjätunnus ja salasana. Käyttäjätunnuksen ja salasanan minimipituus
+            on 4 merkkiä. </p>
                     
         <form name="uusiKayttaja"                  
               action="${pageContext.request.contextPath}/LisaaKayttaja"
               method="post">            
-            Käyttäjätunnus: </br> <input type="text" name="tunnus"/> <br/>             
-            Salasana: </br> <input type="password" name="salasana"/> <br/>              
+            <b>Käyttäjätunnus:</b> </br> <input type="text" name="tunnus"/> <br/>             
+            <b>Salasana:</b> </br> <input type="password" name="salasana"/> <br/>              
             <input type="submit" value="Rekisteröidy"/>
             </form>
               

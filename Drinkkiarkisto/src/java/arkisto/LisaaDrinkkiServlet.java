@@ -19,27 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 public class LisaaDrinkkiServlet extends HttpServlet {
 
     private Rekisteri rekisteri = new Rekisteri();
-    private boolean jarjestys = true;
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (request.getSession().getAttribute("tunnus") != null) // jos ei ole kirjautunut sisälle, ei pysty lisäämään drinkkiä
-            request.setAttribute("lisays", "lisaa");
-        
-        if (request.getParameter("sort") == null)
-            request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista
-        else
-            jarjestaLista(request);
-        
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("drinkkilista.jsp"); // ohjataan pyyntö drinkkilista.jsp-sivulle
+                request.getRequestDispatcher("/Lista"); // ohjataan pyyntö Lista-servletille
         dispatcher.forward(request, response);
     }
     
@@ -53,6 +39,10 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         String nimi = request.getParameter("nimi"); // otetaan lomakkeesta drinkin nimi
         String kuvaus = request.getParameter("kuvaus"); // kuvaus
         String ohjeet = request.getParameter("ohjeet"); // ohjeet
+        long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
+        
+        // haetaan juomalaji, joka vastaa parametrina saatua lajin id:tä
+        Juomalaji laji = rekisteri.haeJuomalaji(juomalajinId);
         
         if (request.getParameterValues("arvo") != null) {
             String[] arvo = request.getParameterValues("arvo"); // arvosana
@@ -60,11 +50,12 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         }
         
         if (nimi.length() > 0 && ohjeet.length() > 0) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
-            Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet); 
+            Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet);
+            resepti.setLaji(laji); // asetetaan mihin lajiin drinkki kuuluu
             rekisteri.lisaaDrinkki(resepti); // ja lisätään se tietokantaan, lopuksi
-            response.sendRedirect(request.getRequestURI()); // ohjataan pyyntö samalle sivulle -> doGet suoritetaan
+            request.getRequestDispatcher("/Lista").forward(request, response); // ohjataan pyyntö Lista-servletille -> doGet suoritetaan
         } else {
-            response.sendRedirect(request.getRequestURI()); // jos tietoja puuttuu, ohjataan samalle sivulle
+            request.getRequestDispatcher("/Lista").forward(request, response); // jos tietoja puuttuu, ohjataan samalle sivulle
             return;
         }
         
@@ -77,19 +68,6 @@ public class LisaaDrinkkiServlet extends HttpServlet {
             return false;
         } else
             return true;
-    }
-
-    // järjestää drinkkilistan nimen perusteella nousevaan tai laskevaan järjestykseen
-    private void jarjestaLista(HttpServletRequest request)
-        throws ServletException, IOException {
-        
-        if (request.getParameter("sort") != null && jarjestys) { // jos painettiin, sort-nappia, järjestetään
-            request.setAttribute("juomat", new Rekisteri().getOrderedJuomat()); // juomat laskevasti
-            jarjestys = false;
-        } else if (request.getParameter("sort") != null && !jarjestys) { // jos juomat on jo järjestetty laskevasti ja painetaan
-            request.setAttribute("juomat", new Rekisteri().getJuomat()); // nappia sort, palautetaan alkuperäinen järjestys
-            jarjestys = true;
-        }  
     }
     
 }

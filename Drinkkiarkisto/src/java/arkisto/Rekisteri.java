@@ -44,7 +44,7 @@ public class Rekisteri {
         return em.createQuery("SELECT u FROM Kayttaja u").getResultList();
     }
     
-    // etsii tietokannasta käyttäjän tämän tunnuksen perusteella
+    // etsii tietokannasta käyttäjän tämän tunnuksen perusteella, joka on pääavain
     public Kayttaja haeKayttaja(String tunnus) {
         em = getEntityManager();
         return em.find(Kayttaja.class, tunnus); // etsii kayttaja-luokan ilmentymän tämän tunnuksella
@@ -55,7 +55,7 @@ public class Rekisteri {
     public void lisaaDrinkki(Drinkkiresepti uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
-        em.persist(uusi);
+        em.merge(uusi);
         em.getTransaction().commit();     
     }
 
@@ -69,6 +69,37 @@ public class Rekisteri {
     public List<Drinkkiresepti> getOrderedJuomat() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.nimi desc").getResultList();
+    }
+    
+    // lisää uuden juomalajin tietokantaan
+    public void lisaaJuomalaji(Juomalaji uusi) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        em.persist(uusi);
+        em.getTransaction().commit();   
+    }
+    
+    // lista drinkeistä, järjestetty nousevasti juomalajin perusteella
+    public List<Drinkkiresepti> getSortByLajitJuomat() {
+        em = getEntityManager();
+        return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.laji.nimi asc").getResultList(); 
+    }
+    
+    // lista drinkeistä, järjestetty laskevasti juomalajin perusteella
+    public List<Drinkkiresepti> getSortByLajitJuomat2() {
+        em = getEntityManager();
+        return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.laji.nimi desc").getResultList();
+    }
+    
+    public List<Juomalaji> getJuomaLajit() {
+        em = getEntityManager();
+        return em.createQuery("SELECT j FROM Juomalaji j").getResultList();
+    }
+    
+    // etsii pääavaimen perusteella haettavan juomalajin
+    public Juomalaji haeJuomalaji(long lajinId) {
+        EntityManager em = getEntityManager();
+        return em.find(Juomalaji.class, lajinId);
     }
     
 }

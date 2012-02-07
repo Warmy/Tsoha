@@ -5,11 +5,14 @@
 package arkisto;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -34,6 +37,10 @@ public class Drinkkiresepti implements Serializable {
     @Column
     private int arvosana; // drinkin arvosana
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn // kertoo, että attribuutti on viiteavain toiseen tauluun
+    private Juomalaji laji;
+    
     public Drinkkiresepti() {
     }
 
@@ -86,6 +93,18 @@ public class Drinkkiresepti implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    // palauttaa tiedon siitä mihin juomalajiin drinkki kuuluu
+    public Juomalaji getLaji() {
+        return laji;
+    }
+
+    // voidaan asettaa mihin juomalajiin drinkki kuuluu
+    public void setLaji(Juomalaji laji) {
+        this.laji = laji;
+        if (!laji.getDrinkit().contains(this)) // samalla kun asetetaan drinkille juomalaji,
+            laji.getDrinkit().add(this); // asetetaan drinkki juomalajille
     }
     
     
