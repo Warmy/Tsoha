@@ -58,22 +58,27 @@ color:#000
               <!-- Jos ei yhtään drinkkiä olemassa, älä tee mitään //-->   
             <c:if test="${not empty juomat}">
                 
-                <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit nimen mukaan -->
-                <form action="${pageContext.request.contextPath}/Lista"
-                      name="myForm"
-                      method="GET">
-                <input type="hidden" name="sortByCategory" value="myForm"/>
-                <input type="submit" value="Järjestä juomalajin mukaan" style="width:170px">
-                </form>
-                <form action="${pageContext.request.contextPath}/Lista"
-                      name="myForm"
-                      method="GET">
-                <input type="hidden" name="sortByName" value="myForm"/>
-                <input type="submit" value="Järjestä nimen mukaan" style="width:170px">
-                </form>
+                <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit nimen tai lajin mukaan -->
+                <table border="0" width="300" cellpadding="2" cellspacing="1">
+                
+                    <td><form action="${pageContext.request.contextPath}/Lista"
+                          name="myForm"   
+                          method="GET">
+                        <input type="hidden" name="sortByName" value="myForm"/>
+                        <input type="submit" value="Järjestä nimen mukaan" style="width:175px">
+                    
+                    </form></td>   
+                    
+                    <td><form action="${pageContext.request.contextPath}/Lista"
+                              name="myForm"
+                              method="GET">
+                            <input type="hidden" name="sortByCategory" value="myForm"/>
+                            <input type="submit" value="Järjestä juomalajin mukaan" style="width:175px">
+                        </form></td>
+                </table>
                       
                       <!-- Listaa drinkit -->
-                <table border="1" width="300" cellpadding="3" cellspacing="1">
+                <table border="1" width="360" cellpadding="3" cellspacing="1">
                     <tr>
                         <th>Nimi</th>
                         <th>Id</th>
@@ -135,7 +140,7 @@ color:#000
         
         <form action="${pageContext.request.contextPath}/LisaaJuomalaji"
               method="post">
-            Nimi: <input type="text" name="laji"/> <br/>
+            Nimi: <input type="text" name="laji"/>
             <input type="submit" value="Lisää laji"/>
         </form>
     </body>

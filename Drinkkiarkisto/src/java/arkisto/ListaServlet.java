@@ -72,10 +72,10 @@ public class ListaServlet extends HttpServlet {
         throws ServletException, IOException {
         
         if (request.getParameter("sortByCategory") != null && jarjestys) { // jos painettiin, sort-nappia, järjestetään
-            request.setAttribute("juomat", new Rekisteri().getSortByLajitJuomat()); // juomat lajin perusteella nousevasti
+            request.setAttribute("juomat", new Rekisteri().sortJuomatByLajitAsc()); // juomat lajin perusteella nousevasti
             jarjestys = false;
         } else if (request.getParameter("sortByCategory") != null && !jarjestys) { // jos juomat on jo järjestetty lajin mukaan nousevasti ja painetaan
-            request.setAttribute("juomat", new Rekisteri().getSortByLajitJuomat2()); // nappia sort, järjestetään lajin mukaan laskevasti
+            request.setAttribute("juomat", new Rekisteri().sortJuomatByLajitDesc()); // nappia sort, järjestetään lajin mukaan laskevasti
             jarjestys = true;
         }  
     }

@@ -62,7 +62,7 @@ public class Rekisteri {
     // palauttaa listan kaikista juomista
     public List<Drinkkiresepti> getJuomat() {
         em = getEntityManager();
-        return em.createQuery("SELECT d FROM Drinkkiresepti d").getResultList();
+        return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.nimi asc").getResultList();
     }
     
     // järjestetty lista juomista
@@ -80,13 +80,13 @@ public class Rekisteri {
     }
     
     // lista drinkeistä, järjestetty nousevasti juomalajin perusteella
-    public List<Drinkkiresepti> getSortByLajitJuomat() {
+    public List<Drinkkiresepti> sortJuomatByLajitAsc() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.laji.nimi asc").getResultList(); 
     }
     
     // lista drinkeistä, järjestetty laskevasti juomalajin perusteella
-    public List<Drinkkiresepti> getSortByLajitJuomat2() {
+    public List<Drinkkiresepti> sortJuomatByLajitDesc() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.laji.nimi desc").getResultList();
     }
