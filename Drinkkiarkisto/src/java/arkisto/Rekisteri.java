@@ -37,6 +37,15 @@ public class Rekisteri {
         em.getTransaction().commit();     
     }
     
+    // lisää uuden arvostelun tietokantaan, mergen avulla päivitetään drinkin
+    // tila tietokannassa, koska drinkille lisättiin uusi arvostelu
+    public void lisaaArvostelu(Arvostelu uusi) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        em.merge(uusi);
+        em.getTransaction().commit();
+    }
+    
     
     // palauttaa listan kaikista käyttäjistä
     public List<Kayttaja> getKayttajat() {
@@ -48,6 +57,12 @@ public class Rekisteri {
     public Kayttaja haeKayttaja(String tunnus) {
         em = getEntityManager();
         return em.find(Kayttaja.class, tunnus); // etsii kayttaja-luokan ilmentymän tämän tunnuksella
+    }
+    
+    // etsii tietokannasta drinkin tämän id:n perusteella, joka on pääavain
+    public Drinkkiresepti haeDrinkki(long juomaId) {
+        em = getEntityManager();
+        return em.find(Drinkkiresepti.class, juomaId);
     }
     
     

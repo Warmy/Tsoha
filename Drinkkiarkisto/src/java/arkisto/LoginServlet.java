@@ -42,11 +42,6 @@ public class LoginServlet extends HttpServlet {
         
         Kayttaja kayttaja = rekisteri.haeKayttaja(tunnus);
         
-//        if (kayttaja == null) {
-//            request.setAttribute("virhe", "Käyttäjätunnus tai salasana on väärin."); // jos syötettiin väärät tiedot,
-//            doGet(request, response); // näytetään varoitusteksti käyttäjälle
-//            return;
-//        }
         /*
          * Lomakkeen mukana lähetetty tunnus ja salasana napataan ja jos
          * tunnus ja salasana ovat oikein, luodaan uusi istunto, jonka

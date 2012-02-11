@@ -5,6 +5,7 @@
 package arkisto;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -36,7 +38,12 @@ public class Drinkkiresepti implements Serializable {
     
     @Column
     private int arvosana; // drinkin arvosana
-
+    
+    @OneToMany
+    @JoinColumn // viiteavain Arvosteluun
+    // drinkillä voi olla monta arvostelua
+    private List<Arvostelu> arvostelut;
+    
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn // kertoo, että attribuutti on viiteavain toiseen tauluun
     private Juomalaji laji;
@@ -105,6 +112,15 @@ public class Drinkkiresepti implements Serializable {
         this.laji = laji;
         if (!laji.getDrinkit().contains(this)) // samalla kun asetetaan drinkille juomalaji,
             laji.getDrinkit().add(this); // asetetaan drinkki juomalajille
+    }
+    
+    // drinkkiin liittyvät arvostelut
+    public void setArvostelut(List<Arvostelu> arvostelut) {
+        this.arvostelut = arvostelut;
+    }
+    
+    public List<Arvostelu> getArvostelut() {
+        return arvostelut;
     }
     
     

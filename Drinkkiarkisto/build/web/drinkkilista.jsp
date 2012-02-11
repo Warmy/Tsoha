@@ -37,7 +37,7 @@ ul#list-nav li a:hover {
 background:#a2b3a1;
 color:#000
 }
-</style>   
+</style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Reseptilista</title>
     </head>
@@ -86,7 +86,10 @@ color:#000
                     </tr>
             <c:forEach var="drinkki" items="${juomat}">
                 <tr>
-                    <td>${drinkki.nimi}</td>
+                    <!-- Jokaisesta drinkista on linkki DrinkinTiedot-servletiin, jolle annetaan parametrina
+                    drinkin id. Servlet hoitaa drinkin tietojen käsittelyn ja ohjaa sivulle, jossa näytetään
+                    drinkin kaikki tiedot. -->
+                    <td><a href="/Drinkkiarkisto/DrinkinTiedot?id=${drinkki.id}">${drinkki.nimi}</a></td>
                     <td>${drinkki.id}</td>
                     <td>${drinkki.laji.nimi}</td>
                 </tr>

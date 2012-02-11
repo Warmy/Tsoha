@@ -23,6 +23,7 @@ public class LisaaDrinkkiServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/Lista"); // ohjataan pyyntö Lista-servletille

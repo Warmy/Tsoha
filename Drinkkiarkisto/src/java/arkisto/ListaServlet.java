@@ -52,8 +52,8 @@ public class ListaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.sendRedirect(request.getRequestURI()); // POST-pyynnöt ohjataan doGetille
-    }
+         response.sendRedirect(request.getRequestURI()); // POST-pyynnöt ohjataan doGetille, esim LisaaKayttajan doPost ohjaa
+    }                                                   // pyynnön tämän servletin doPost-metodiin, joka ohjaa sen doGet:iin
     
     // järjestää drinkkilistan nimen perusteella nousevaan tai laskevaan järjestykseen
     private void jarjestaLista(HttpServletRequest request)

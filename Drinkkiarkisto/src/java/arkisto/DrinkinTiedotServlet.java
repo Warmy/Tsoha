@@ -11,26 +11,35 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Keni
+ * Servlet nappaa käyttäjän linkin mukana antaman parametrin, joka on drinkin id.
+ * Tämän perusteella luokka tunnistaa drinkin ja
+ * asettaa attribuuteiksi drinkin erinäisiä tietoja ja ohjaa käyttäjän
+ * tiedot.jsp-sivulle, jossa drinkin tiedot näytetään.
  */
-public class LogoutServlet extends HttpServlet {
+public class DrinkinTiedotServlet extends HttpServlet {
+    
+    private Rekisteri rekisteri = new Rekisteri();
 
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        session.invalidate(); // lopettaa nykyisen istunnon, vaatii uuden kirjautumisen, jotta chattiin pääsee taas
+        response.setContentType("text/html;charset=UTF-8");
+        long juomaId = Long.parseLong(request.getParameter("id")); // napataan drinkin id
+        Drinkkiresepti drinkki = rekisteri.haeDrinkki(juomaId); // etsitään sen perusteella tietty drinkkiresepti-ilmentymä
         
-        if (request.getSession().getAttribute("tunnus") != null) // jos istunnon aikana ei ole kirjauduttu sisään
-        {
-            request.getSession().setAttribute("tunnus", null);
-        }
-            
+        request.setAttribute("drinkinNimi", drinkki.getNimi());
+        request.setAttribute("drinkinKuvaus", drinkki.getKuvaus());
+        request.setAttribute("drinkinOhjeet", drinkki.getOhjeet());
+        request.setAttribute("drinkinLaji", drinkki.getLaji().getNimi());
+        request.setAttribute("drinkinId", drinkki.getId());
+        request.setAttribute("drinkinArvostelut", drinkki.getArvostelut());
+        
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("logout.jsp");
+                request.getRequestDispatcher("tiedot.jsp");
         dispatcher.forward(request, response);
     }
 

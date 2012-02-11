@@ -24,6 +24,14 @@
         <servlet-name>ListaServlet</servlet-name>
         <servlet-class>arkisto.ListaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DrinkinTiedotServlet</servlet-name>
+        <servlet-class>arkisto.DrinkinTiedotServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LisaaArvosteluServlet</servlet-name>
+        <servlet-class>arkisto.LisaaArvosteluServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
         <url-pattern>/Lista</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DrinkinTiedotServlet</servlet-name>
+        <url-pattern>/DrinkinTiedot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LisaaArvosteluServlet</servlet-name>
+        <url-pattern>/LisaaArvostelu</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
