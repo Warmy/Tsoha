@@ -32,6 +32,10 @@
         <servlet-name>LisaaArvosteluServlet</servlet-name>
         <servlet-class>arkisto.LisaaArvosteluServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LisaaAinesosaServlet</servlet-name>
+        <servlet-class>arkisto.LisaaAinesosaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>LisaaArvosteluServlet</servlet-name>
         <url-pattern>/LisaaArvostelu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LisaaAinesosaServlet</servlet-name>
+        <url-pattern>/LisaaAinesosa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

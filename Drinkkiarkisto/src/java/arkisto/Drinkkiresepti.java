@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -36,9 +37,6 @@ public class Drinkkiresepti implements Serializable {
     @Column
     private String ohjeet; // reseptiohjeet
     
-    @Column
-    private int arvosana; // drinkin arvosana
-    
     @OneToMany
     @JoinColumn // viiteavain Arvosteluun
     // drinkillä voi olla monta arvostelua
@@ -47,6 +45,10 @@ public class Drinkkiresepti implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn // kertoo, että attribuutti on viiteavain toiseen tauluun
     private Juomalaji laji;
+    
+    @ManyToMany
+    @JoinColumn
+    private List<Ainesosa> ainesosat;
     
     public Drinkkiresepti() {
     }
@@ -59,15 +61,6 @@ public class Drinkkiresepti implements Serializable {
         this.nimi = nimi;
         this.kuvaus = kuvaus;
         this.ohjeet = ohjeet;
-    }
-    
-
-    public int getArvosana() {
-        return arvosana;
-    }
-
-    public void setArvosana(int arvosana) {
-        this.arvosana = arvosana;
     }
 
     public String getKuvaus() {
@@ -121,6 +114,20 @@ public class Drinkkiresepti implements Serializable {
     
     public List<Arvostelu> getArvostelut() {
         return arvostelut;
+    }
+    
+    public void setAinesosat(List<Ainesosa> ainesosat) {
+        this.ainesosat = ainesosat;
+        
+        for (int i=0; i < ainesosat.size(); ++i) { // kun drinkki saa listan siihen kuuluvista ainesosista
+            if (!ainesosat.get(i).getDrinkit().contains(this)) { // lisätään kyseinen drinkki jokaiselle
+                ainesosat.get(i).getDrinkit().add(this); // ainesosalle
+            }
+        }
+    }
+    
+    public List<Ainesosa> getAinesosat() {
+        return ainesosat;
     }
     
     

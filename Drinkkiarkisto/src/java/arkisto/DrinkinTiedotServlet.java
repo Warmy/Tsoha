@@ -37,6 +37,7 @@ public class DrinkinTiedotServlet extends HttpServlet {
         request.setAttribute("drinkinLaji", drinkki.getLaji().getNimi());
         request.setAttribute("drinkinId", drinkki.getId());
         request.setAttribute("drinkinArvostelut", drinkki.getArvostelut());
+        request.setAttribute("drinkinAinesosat", drinkki.getAinesosat());
         
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("tiedot.jsp");

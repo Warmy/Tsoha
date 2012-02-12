@@ -58,7 +58,7 @@ color:#000
               <!-- Jos ei yhtään drinkkiä olemassa, älä tee mitään //-->   
             <c:if test="${not empty juomat}">
                 
-                <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit nimen tai lajin mukaan -->
+                <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit nimen, lajin tai ainesosan mukaan -->
                 <table border="0" width="300" cellpadding="2" cellspacing="1">
                 
                     <td><form action="${pageContext.request.contextPath}/Lista"
@@ -77,7 +77,7 @@ color:#000
                         </form></td>
                 </table>
                       
-                      <!-- Listaa drinkit -->
+                <!-- Listaa drinkit -->
                 <table border="1" width="360" cellpadding="3" cellspacing="1">
                     <tr>
                         <th>Nimi</th>
@@ -86,7 +86,7 @@ color:#000
                     </tr>
             <c:forEach var="drinkki" items="${juomat}">
                 <tr>
-                    <!-- Jokaisesta drinkista on linkki DrinkinTiedot-servletiin, jolle annetaan parametrina
+                    <!-- Jokaisesta drinkistä on linkki DrinkinTiedot-servletiin, jolle annetaan parametrina
                     drinkin id. Servlet hoitaa drinkin tietojen käsittelyn ja ohjaa sivulle, jossa näytetään
                     drinkin kaikki tiedot. -->
                     <td><a href="/Drinkkiarkisto/DrinkinTiedot?id=${drinkki.id}">${drinkki.nimi}</a></td>
@@ -98,7 +98,7 @@ color:#000
             </c:if>
     <br/>
     </br>
-    <!-- Reseptilomake, jossa annetaan nimi, kuvaus, ohjeet, arvosana ja juomalaji.
+    <!-- Reseptilomake, jossa annetaan nimi, kuvaus, ohjeet, ainesosat ja juomalaji.
          Reseptin voi lisää vain, jos on kirjautunut. -->
     <c:if test="${not empty lisays}">
         <h2>Lisää resepti</h2>
@@ -119,12 +119,15 @@ color:#000
                 </c:forEach>    
             </select><br/>
             
-            Arvosana: <input type="radio" name="arvo" value="1" /> 1
-            <input type="radio" name="arvo" value="2" /> 2
-            <input type="radio" name="arvo" value="3" /> 3
-            <input type="radio" name="arvo" value="4" /> 4
-            <input type="radio" name="arvo" value="5" /> 5 <br/><br/>
-            <input type="submit" value="Lisää resepti"/>
+            <!-- Drinkille valitaan siitä koostuvat ainesosat -->
+            <c:if test="${not empty ainesosat}">
+                Ainesosat:
+                <c:forEach var ="aines" items="${ainesosat}">
+                    <input type="checkbox" name="aines" value="${aines.nimi}"/> ${aines.nimi}
+                </c:forEach>
+                    </br>
+            </c:if>
+                    <input type="submit" value="Lisää resepti"/>
             </form>
                                   
               <h3>Juomalajit</h3>
@@ -145,6 +148,14 @@ color:#000
               method="post">
             Nimi: <input type="text" name="laji"/>
             <input type="submit" value="Lisää laji"/>
+        </form>
+              
+        <h4>Lisää ainesosa</h4>
+        
+        <form action="${pageContext.request.contextPath}/LisaaAinesosa"
+              method="post">
+            Nimi: <input type="text" name="aines"/>
+            <input type="submit" value="Lisää ainesosa"/>
         </form>
     </body>
 </html>

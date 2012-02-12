@@ -64,6 +64,11 @@ color:#000
         </br>
         <p><b>Ohjeet:</b></p>
         ${drinkinOhjeet}
+        </br>
+        <p><b>Ainesosat:</b></p>
+        <c:forEach var="aines" items="${drinkinAinesosat}">
+            * ${aines.nimi}</br>
+        </c:forEach>
         </div>
         
         <!-- Listaa kaikki drinkkiin liittyvät arvostelut -->

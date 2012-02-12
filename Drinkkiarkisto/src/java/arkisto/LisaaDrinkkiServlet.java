@@ -6,6 +6,7 @@ package arkisto;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,19 +41,26 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         String nimi = request.getParameter("nimi"); // otetaan lomakkeesta drinkin nimi
         String kuvaus = request.getParameter("kuvaus"); // kuvaus
         String ohjeet = request.getParameter("ohjeet"); // ohjeet
-        long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
+        String[] ainesosa = request.getParameterValues("aines"); // drinkille merkityt ainesosat
         
+        long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
         // haetaan juomalaji, joka vastaa parametrina saatua lajin id:tä
         Juomalaji laji = rekisteri.haeJuomalaji(juomalajinId);
         
-        if (request.getParameterValues("arvo") != null) {
-            String[] arvo = request.getParameterValues("arvo"); // arvosana
-            int arvosana = Integer.parseInt(arvo[0]);
+        ArrayList<Ainesosa> lista = new ArrayList<Ainesosa>();
+        if (ainesosa != null) {
+            for (int i=0; i < ainesosa.length; ++i) {
+                if (ainesosa[i] != null) {
+                Ainesosa uusi = rekisteri.haeAinesosa(ainesosa[i]);
+                lista.add(uusi);
+                }   
+            }
         }
         
         if (nimi.length() > 0 && ohjeet.length() > 0) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
             Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet);
             resepti.setLaji(laji); // asetetaan mihin lajiin drinkki kuuluu
+            resepti.setAinesosat(lista); // lisätään ainesosat drinkille
             rekisteri.lisaaDrinkki(resepti); // ja lisätään se tietokantaan, lopuksi
             request.getRequestDispatcher("/Lista").forward(request, response); // ohjataan pyyntö Lista-servletille -> doGet suoritetaan
         } else {
