@@ -45,7 +45,7 @@ color:#000
         <h1>Reseptilista</h1>
         
         <ul id="list-nav">
-            <li><a href="lista.jsp">Etusivu</a></li>
+            <li><a href="index.jsp">Etusivu</a></li>
             <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
@@ -76,7 +76,7 @@ color:#000
                             <input type="submit" value="Järjestä juomalajin mukaan" style="width:175px">
                         </form></td>
                 </table>
-                      
+                              
                 <!-- Listaa drinkit -->
                 <table border="1" width="360" cellpadding="3" cellspacing="1">
                     <tr>
@@ -135,9 +135,6 @@ color:#000
             <ul>
                 <c:forEach var="laji" items="${lajit}">
                     <li>${laji.nimi}</li>
-                    <c:forEach var="juoma" items="${lajit}">
-                        ${juoma.getNimi()}<br/>
-                    </c:forEach>
                 </c:forEach>
             </ul>
     </c:if>

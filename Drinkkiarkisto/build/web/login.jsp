@@ -45,7 +45,7 @@ color:#000
         <h1>Kirjaudu sisään</h1>
         
         <ul id="list-nav">
-            <li><a href="lista.jsp">Etusivu</a></li>
+            <li><a href="index.jsp">Etusivu</a></li>
             <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
@@ -59,12 +59,12 @@ color:#000
         <form action="${pageContext.request.contextPath}/Login" 
             method="POST">
             Käyttäjätunnus: </br><input type="text" name="tunnus" /><br/>
-            Salasana: </br><input type="password" name="salasana"<br/></br>
+            Salasana: </br><input type="password" name="salasana"><br/>
             <input type="submit" value="Kirjaudu sisään"/>    
         </form>
          <br/>   
               
-         <!-- näytetään virheilmoitus, jos rekisteröinti meni pieleen //-->
+         <!-- näytetään virheilmoitus, jos kirjautuminen meni pieleen //-->
               
     <c:if test="${not empty virhe}">
         <font color="red">${virhe}</font>    

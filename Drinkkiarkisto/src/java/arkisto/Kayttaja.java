@@ -50,13 +50,4 @@ public class Kayttaja implements Serializable {
     public void setTunnus(String tunnus) {
         this.tunnus = tunnus;
     }
-
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-    
 }

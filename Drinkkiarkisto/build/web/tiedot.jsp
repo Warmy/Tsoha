@@ -43,7 +43,7 @@ color:#000
     </head>
     <body>
         <ul id="list-nav">
-            <li><a href="lista.jsp">Etusivu</a></li>
+            <li><a href="index.jsp">Etusivu</a></li>
             <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
@@ -54,7 +54,7 @@ color:#000
         
         <h1>Drinkin tiedot</h1>
         <div style="width:auto;height:auto;border:1px solid black;padding:10px">
-        <p><b>Drinkin nimi: </b>${drinkinNimi}</p>
+        <p><b><font size="4px">${drinkinNimi}</font></b></p>
         <hr/>
         <p><b>Juomalaji:</b></p>
         ${drinkinLaji}
@@ -66,9 +66,11 @@ color:#000
         ${drinkinOhjeet}
         </br>
         <p><b>Ainesosat:</b></p>
-        <c:forEach var="aines" items="${drinkinAinesosat}">
-            * ${aines.nimi}</br>
+        <ul>
+        <c:forEach var="aines" items="${drinkinAinesosat}">            
+            <li>${aines.nimi}</li>
         </c:forEach>
+        </ul>
         </div>
         
         <!-- Listaa kaikki drinkkiin liittyvät arvostelut -->
