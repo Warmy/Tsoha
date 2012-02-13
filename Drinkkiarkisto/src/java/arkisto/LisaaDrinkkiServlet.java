@@ -43,9 +43,7 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         String ohjeet = request.getParameter("ohjeet"); // ohjeet
         String[] ainesosa = request.getParameterValues("aines"); // drinkille merkityt ainesosat
         
-        long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
-        // haetaan juomalaji, joka vastaa parametrina saatua lajin id:tä
-        Juomalaji laji = rekisteri.haeJuomalaji(juomalajinId);
+        String lajinId = request.getParameter("lajinId");
         
         ArrayList<Ainesosa> lista = new ArrayList<Ainesosa>();
         if (ainesosa != null) {
@@ -57,7 +55,10 @@ public class LisaaDrinkkiServlet extends HttpServlet {
             }
         }
         
-        if (nimi.length() > 0 && ohjeet.length() > 0) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
+        if (nimi.length() > 0 && ohjeet.length() > 0 && lajinId != null) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
+            long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
+            // haetaan juomalaji, joka vastaa parametrina saatua lajin id:tä
+            Juomalaji laji = rekisteri.haeJuomalaji(juomalajinId);
             Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet);
             resepti.setLaji(laji); // asetetaan mihin lajiin drinkki kuuluu
             resepti.setAinesosat(lista); // lisätään ainesosat drinkille

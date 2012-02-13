@@ -51,12 +51,11 @@ color:#000
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
         </ul>
-        
-        <br/>
-        <br/>
-        <br/>
               <!-- Jos ei yhtään drinkkiä olemassa, älä tee mitään //-->   
             <c:if test="${not empty juomat}">
+                        <br/>  
+                        <br/>
+                        <br/>
                 
                 <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit nimen, lajin tai ainesosan mukaan -->
                 <table border="0" width="300" cellpadding="2" cellspacing="1">
@@ -96,8 +95,7 @@ color:#000
             </c:forEach>
                 </table>
             </c:if>
-    <br/>
-    </br>
+                
     <!-- Reseptilomake, jossa annetaan nimi, kuvaus, ohjeet, ainesosat ja juomalaji.
          Reseptin voi lisää vain, jos on kirjautunut. -->
     <c:if test="${not empty lisays}">
@@ -112,7 +110,7 @@ color:#000
             <font color="red">*</font> Ohjeet: </br> <textarea name="ohjeet"></textarea> <br/>  
             
             <!-- Drinkille valitaan sopiva juomalaji -->
-            Juomalaji:               
+            <font color="red">*</font> Juomalaji:               
             <select name="lajinId">              
                 <c:forEach var="laji" items="${lajit}">                  
                     <option value="${laji.id}">${laji.nimi}</option>       
@@ -129,7 +127,7 @@ color:#000
             </c:if>
                     <input type="submit" value="Lisää resepti"/>
             </form>
-                                  
+                        
               <h3>Juomalajit</h3>
               
             <ul>
