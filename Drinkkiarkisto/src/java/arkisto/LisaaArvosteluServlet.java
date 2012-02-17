@@ -41,11 +41,21 @@ public class LisaaArvosteluServlet extends HttpServlet {
         String arvostelu = request.getParameter("arvostelu");
         String arvo = request.getParameter("arvo"); // arvosana
         
+        nimiMerkki = estaCrossSiteScripting(nimiMerkki);
+        arvostelu = estaCrossSiteScripting(arvostelu);
+        arvo = estaCrossSiteScripting(arvo);
+        
         long drinkinId = Long.parseLong(request.getParameter("drinkId")); // napataan drinkin id
         Drinkkiresepti drinkki = rekisteri.haeDrinkki(drinkinId); // haetaan drinkki, jolle arvostelu kirjoitettiin
         
-        if ((nimiMerkki.length() > 0 && arvostelu.length() > 0) && arvo != null) {
+        if ((nimiMerkki.length() > 0 && arvostelu.length() > 0 && arvostelu.length() <= 300) && arvo != null) {
             int arvosana = Integer.parseInt(arvo);
+            
+            if (arvosana < 1) // varmistetaan, että arvosana pysyy rajojen sisällä
+                arvosana = 1;
+            else if (arvosana > 5)
+                arvosana = 5;
+            
             Arvostelu uusi = new Arvostelu(arvosana, arvostelu, nimiMerkki);
             uusi.setResepti(drinkki);
             rekisteri.lisaaArvostelu(uusi);
@@ -55,5 +65,11 @@ public class LisaaArvosteluServlet extends HttpServlet {
             return;
         }
             
+    }
+    
+    private String estaCrossSiteScripting(String mjono) {
+        mjono = mjono.replace("<", "&lt;");
+        mjono = mjono.replace(">", "&gt;");
+        return mjono;
     }
 }

@@ -5,7 +5,6 @@
 package arkisto;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Käsittelee drinkin tietoja.
+ * 
  * Servlet nappaa käyttäjän linkin mukana antaman parametrin, joka on drinkin id.
  * Tämän perusteella luokka tunnistaa drinkin ja
  * asettaa attribuuteiksi drinkin erinäisiä tietoja ja ohjaa käyttäjän
@@ -22,9 +26,26 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DrinkinTiedotServlet extends HttpServlet {
     
+    /**
+     * Käsittelee tietokantaoperaatioita. Tässä luokassa hakee drinkkireseptejä
+     * tietokannasta.
+     */
     private Rekisteri rekisteri = new Rekisteri();
 
-    
+    /**
+     * Asettaa HTTP-pyynnön attribuuteiksi drinkin kaikki mahdolliset tiedot.
+     * 
+     * Kun käyttäjä on sivulla "drinkkilista.jsp", joka listaa drinkit, niin jokaisella drinkillä
+     * on linkki, joka vie tähän servletiin. Linkin klikkauksen myötä servletille on
+     * annettu drinkin yksilöivä pääavain, jonka metodi nappaa. Pääavaimen perusteella
+     * haetaan drinkki tietokannasta ja asetetaan pyynnön attribuuteiksi kaikki drinkin
+     * tiedot. 
+     * 
+     * Tämän jälkeen ohjataan pyyntö "tiedot.jsp"-sivulle, joka näyttää
+     * HTML-sivulla attribuutteina annetut drinkin tiedot.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -44,7 +65,6 @@ public class DrinkinTiedotServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -70,13 +90,4 @@ public class DrinkinTiedotServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

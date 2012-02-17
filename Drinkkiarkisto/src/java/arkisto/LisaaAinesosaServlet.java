@@ -34,8 +34,9 @@ public class LisaaAinesosaServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String ainesosa = request.getParameter("aines"); // napataan lomakkeesta ainesosan nimi
+        ainesosa = estaCrossSiteScripting(ainesosa);
         
-        if (ainesosa.length() > 0) {
+        if (ainesosa.length() > 0 && ainesosa.length() <= 30) { // tarkistetaan pituus
             Ainesosa uusi = new Ainesosa(ainesosa); // tehdään uusi ainesosa ja lisätään rekisteriin
             rekisteri.lisaaAinesosa(uusi);
             request.getRequestDispatcher("/Lista").forward(request, response);
@@ -43,5 +44,11 @@ public class LisaaAinesosaServlet extends HttpServlet {
             request.getRequestDispatcher("/Lista").forward(request, response); // jos tietoja puuttuu, ohjataan Lista-servletille
             return;
         }      
+    }
+
+    private String estaCrossSiteScripting(String ainesosa) {
+        ainesosa = ainesosa.replace("<", "&lt;");
+        ainesosa = ainesosa.replace(">", "&gt;");
+        return ainesosa;
     }
 }

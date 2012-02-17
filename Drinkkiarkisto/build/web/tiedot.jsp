@@ -89,6 +89,7 @@ color:#000
 
         <h3>Kirjoita arvostelu</h3>
         
+        Arvostelun maksimipituus on 300 merkkiä.
         <form action="${pageContext.request.contextPath}/LisaaArvostelu"
               method="post">
             Nimimerkki:</br> <input type="text" name="nick"/></br>

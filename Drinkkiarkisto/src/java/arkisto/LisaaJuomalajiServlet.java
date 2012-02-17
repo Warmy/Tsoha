@@ -34,8 +34,9 @@ public class LisaaJuomalajiServlet extends HttpServlet {
             throws ServletException, IOException {
         
         String juomalaji = request.getParameter("laji"); // napataan lomakkeesta lajin nimi
+        juomalaji = estaCrossSiteScripting(juomalaji);
         
-        if (juomalaji.length() > 0) {
+        if (juomalaji.length() > 0 && juomalaji.length() <= 30) {
             Juomalaji uusi = new Juomalaji(juomalaji); // tehdään uusi juomalaji ja lisätään rekisteriin
             rekisteri.lisaaJuomalaji(uusi);
             request.getRequestDispatcher("/Lista").forward(request, response);
@@ -43,5 +44,11 @@ public class LisaaJuomalajiServlet extends HttpServlet {
             request.getRequestDispatcher("/Lista").forward(request, response); // jos tietoja puuttuu, ohjataan Lista-servletille
             return;
         }      
+    }
+    
+    private String estaCrossSiteScripting(String mjono) {
+        mjono = mjono.replace("<", "&lt;");
+        mjono = mjono.replace(">", "&gt;");
+        return mjono;
     }
 }

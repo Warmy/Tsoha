@@ -55,8 +55,8 @@ color:#000
         <br/>
         <br/>
         <br/>
-        <p> Luo käyttäjätunnus ja salasana. Käyttäjätunnuksen ja salasanan minimipituus
-            on 4 merkkiä. </p>
+        <p> Luo käyttäjätunnus ja salasana. Käyttäjätunnuksen pituuden tulee olla 4-15 merkkiä pitkä
+            ja salasanan 4-30 merkkiä pitkä. </p>
                     
         <form name="uusiKayttaja"                  
               action="${pageContext.request.contextPath}/LisaaKayttaja"
@@ -70,6 +70,10 @@ color:#000
               <c:if test="${not empty virhe}">
                   <font color="red">${virhe}</font>
               </c:if>
+                  
+                  <c:if test="${not empty virhe2}">
+                      <font color="red">${virhe2}</font>
+                  </c:if>
               </br>
               ${tunnus}
               </br>   

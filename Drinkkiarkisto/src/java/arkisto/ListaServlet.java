@@ -32,8 +32,13 @@ public class ListaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (request.getSession().getAttribute("tunnus") != null) // jos ei ole kirjautunut sisälle, ei pysty lisäämään drinkkiä
+        if (request.getSession().getAttribute("tunnus") != null) {// jos ei ole kirjautunut sisälle, ei pysty lisäämään drinkkiä
             request.setAttribute("lisays", "lisaa");
+            
+            String tunnus = (String) request.getSession().getAttribute("tunnus");
+            if (tunnus.equals("Admin")) // jos kirjautunut käyttäjä on admin, annetaan valtuudet
+                request.setAttribute("lajiJaAines", "AdminOK"); // lisätä juomalajeja ja ainesosia
+        }
         
         if (request.getParameter("sortByName") == null && request.getParameter("sortByCategory") == null)
             request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista

@@ -96,6 +96,8 @@ color:#000
                 </table>
             </c:if>
                 
+            <br/>
+            
     <!-- Reseptilomake, jossa annetaan nimi, kuvaus, ohjeet, ainesosat ja juomalaji.
          Reseptin voi lisää vain, jos on kirjautunut. -->
     <c:if test="${not empty lisays}">
@@ -137,20 +139,26 @@ color:#000
             </ul>
     </c:if>
         
-        <h4>Lisää juomalaji</h4>
+ 
+              <!-- Jos ei ole adminina kirjautunut sisään, ei voi lisätä juomalajia tai ainesosia -->
+              <c:if test="${not empty lajiJaAines}">
         
-        <form action="${pageContext.request.contextPath}/LisaaJuomalaji"
-              method="post">
-            Nimi: <input type="text" name="laji"/>
-            <input type="submit" value="Lisää laji"/>
-        </form>
-              
-        <h4>Lisää ainesosa</h4>
+                  <h4>Lisää juomalaji</h4> 
         
-        <form action="${pageContext.request.contextPath}/LisaaAinesosa"
-              method="post">
-            Nimi: <input type="text" name="aines"/>
-            <input type="submit" value="Lisää ainesosa"/>
-        </form>
+                  <form action="${pageContext.request.contextPath}/LisaaJuomalaji"
+                        method="post">  
+                      Nimi: <input type="text" name="laji"/> 
+                      <input type="submit" value="Lisää laji"/>
+                  </form>
+                        
+                        <h4>Lisää ainesosa</h4>
+        
+        
+                        <form action="${pageContext.request.contextPath}/LisaaAinesosa"
+                              method="post">
+                            Nimi: <input type="text" name="aines"/>        
+                            <input type="submit" value="Lisää ainesosa"/>
+                        </form>
+              </c:if>
     </body>
 </html>

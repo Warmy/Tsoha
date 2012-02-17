@@ -43,19 +43,39 @@ public class LisaaKayttajaServlet extends HttpServlet {
         String tunnus = request.getParameter("tunnus");
         String salasana = request.getParameter("salasana");
         
-        if (rekisteri.haeKayttaja(tunnus) != null) { // jos tunnus löytyy jo,
-            request.setAttribute("virhe", "Tunnus \""+tunnus+"\" on jo olemassa!"); // näytetään käyttäjälle seuraava viesti
-            doGet(request, response);
+        tunnus = estaCrossSiteScripting(tunnus);
+        salasana = estaCrossSiteScripting(salasana);
+        
+        if (onkoTunnusJoOlemassa(tunnus, request, response))
             return;
-        }
             
-        if (tunnus.length() > 3 && salasana.length() > 3) {
+        // tunnuksen ja salasanan pituuden tarkistus
+        if ((tunnus.length() > 3 && tunnus.length() <= 15) && (salasana.length() > 3 && salasana.length() <= 30)) {
         
         Kayttaja uusi = new Kayttaja(tunnus, salasana); // luodaan lomakkeen tietojen perusteella uusi käyttäjä
         rekisteri.lisaaKayttaja(uusi); // lisätään se tietokantaan
         response.sendRedirect(request.getRequestURI()); // ohjataan pyyntö samalle sivulle
         } else {
-            response.sendRedirect(request.getContextPath()+"/LisaaKayttaja"); // jos huono tunnus tai salasana, palataan sivulle
+            request.setAttribute("virhe2", "Et antanut kelvollisen pituisia syötteitä!");
+            doGet(request, response);
+            return; // jos huono tunnus tai salasana, palataan sivulle ja näytetään virheilmoitus
         }
+    }
+    
+    private boolean onkoTunnusJoOlemassa(String tunnus, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (rekisteri.haeKayttaja(tunnus) != null) { // jos tunnus löytyy jo,
+            request.setAttribute("virhe", "Tunnus \""+tunnus+"\" on jo olemassa!"); // näytetään käyttäjälle seuraava viesti
+            doGet(request, response);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private String estaCrossSiteScripting(String mjono) {
+        mjono = mjono.replace("<", "&lt;");
+        mjono = mjono.replace(">", "&gt;");
+        return mjono;
     }
 }

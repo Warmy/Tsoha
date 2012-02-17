@@ -42,8 +42,12 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         String kuvaus = request.getParameter("kuvaus"); // kuvaus
         String ohjeet = request.getParameter("ohjeet"); // ohjeet
         String[] ainesosa = request.getParameterValues("aines"); // drinkille merkityt ainesosat
-        
         String lajinId = request.getParameter("lajinId");
+        
+        nimi = estaCrossSiteScripting(nimi);
+        kuvaus = estaCrossSiteScripting(kuvaus);
+        ohjeet = estaCrossSiteScripting(ohjeet);
+        lajinId = estaCrossSiteScripting(lajinId);
         
         ArrayList<Ainesosa> lista = new ArrayList<Ainesosa>();
         if (ainesosa != null) {
@@ -78,6 +82,12 @@ public class LisaaDrinkkiServlet extends HttpServlet {
             return false;
         } else
             return true;
+    }
+    
+    private String estaCrossSiteScripting(String mjono) {
+        mjono = mjono.replace("<", "&lt;");
+        mjono = mjono.replace(">", "&gt;");
+        return mjono;
     }
     
 }
