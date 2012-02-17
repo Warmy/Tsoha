@@ -54,7 +54,23 @@ color:#000
         
         <h1>Drinkin tiedot</h1>
         <div style="width:auto;height:auto;border:1px solid black;padding:10px">
-        <p><b><font size="4px">${drinkinNimi}</font></b></p>
+            
+            <!-- Jos kirjauduttu admin-tunnuksilla sisään, voidaan poistaa drinkki -->
+            <c:if test="${not empty AdminRights}">
+            <form action="/Drinkkiarkisto/PoistaDrinkki"
+                  method="POST">          
+                <input type="hidden" name="delete" value="${drinkinId}"/>        
+                <input type="submit" value="Poista drinkki"> 
+            </form> 
+                
+            <form action="/Drinkkiarkisto/MuokkaaDrinkkia"
+                  method="GET">          
+                <input type="hidden" name="edit" value="${drinkinId}"/>        
+                <input type="submit" value="Muokkaa"> 
+            </form> 
+            </c:if>
+            
+        <p><b><font size="4px">Drinkin nimi: ${drinkinNimi}</font></b></p>
         <hr/>
         <p><b>Juomalaji:</b></p>
         ${drinkinLaji}

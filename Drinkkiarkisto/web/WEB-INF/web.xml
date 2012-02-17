@@ -36,6 +36,14 @@
         <servlet-name>LisaaAinesosaServlet</servlet-name>
         <servlet-class>arkisto.LisaaAinesosaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PoistaDrinkkiServlet</servlet-name>
+        <servlet-class>arkisto.PoistaDrinkkiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MuokkaaDrinkkiaServlet</servlet-name>
+        <servlet-class>arkisto.MuokkaaDrinkkiaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>LisaaAinesosaServlet</servlet-name>
         <url-pattern>/LisaaAinesosa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PoistaDrinkkiServlet</servlet-name>
+        <url-pattern>/PoistaDrinkki</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MuokkaaDrinkkiaServlet</servlet-name>
+        <url-pattern>/MuokkaaDrinkkia</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

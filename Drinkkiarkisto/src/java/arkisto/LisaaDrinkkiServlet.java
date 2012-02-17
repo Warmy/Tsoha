@@ -59,7 +59,9 @@ public class LisaaDrinkkiServlet extends HttpServlet {
             }
         }
         
-        if (nimi.length() > 0 && ohjeet.length() > 0 && lajinId != null) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
+        if ((nimi.length() > 0 && nimi.length() <= 30) && (ohjeet.length() > 0 && ohjeet.length() <= 300) 
+                && lajinId != null && kuvaus.length() <= 300) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
+            
             long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
             // haetaan juomalaji, joka vastaa parametrina saatua lajin id:tä
             Juomalaji laji = rekisteri.haeJuomalaji(juomalajinId);
@@ -67,6 +69,7 @@ public class LisaaDrinkkiServlet extends HttpServlet {
             resepti.setLaji(laji); // asetetaan mihin lajiin drinkki kuuluu
             resepti.setAinesosat(lista); // lisätään ainesosat drinkille
             rekisteri.lisaaDrinkki(resepti); // ja lisätään se tietokantaan, lopuksi
+            
             request.getRequestDispatcher("/Lista").forward(request, response); // ohjataan pyyntö Lista-servletille -> doGet suoritetaan
         } else {
             request.getRequestDispatcher("/Lista").forward(request, response); // jos tietoja puuttuu, ohjataan samalle sivulle

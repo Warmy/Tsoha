@@ -33,7 +33,7 @@ public class Ainesosa implements Serializable {
     /**
      * Lista drinkkiresepteistä, joihin ainesosa kuuluu.
      */
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn
     private List<Drinkkiresepti> reseptit;
 

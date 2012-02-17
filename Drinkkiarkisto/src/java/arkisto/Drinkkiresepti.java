@@ -60,7 +60,7 @@ public class Drinkkiresepti implements Serializable {
      * arvostelu eli luodaan uusi Arvostelu-olio, sillä on viite arvosteltuun
      * drinkkiin ja drinkillä on viite siihen liittyviin arvosteluihin.
      */
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.REFRESH})
     @JoinColumn // viiteavain Arvosteluun
     // drinkillä voi olla monta arvostelua
     private List<Arvostelu> arvostelut;
@@ -72,7 +72,7 @@ public class Drinkkiresepti implements Serializable {
      * sen juomalaji, Juomalaji-oliolle päivitetään tieto siitä, että sillä
      * on yksi drinkki lisää, joka kuuluu tälle Juomalaji-oliolle.
      */
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn // kertoo, että attribuutti on viiteavain toiseen tauluun
     private Juomalaji laji;
     
@@ -83,7 +83,7 @@ public class Drinkkiresepti implements Serializable {
      * ovat Ainesosa-olioita, joille päivitetään tieto siitä, että nämä oliot
      * kuuluvat tähän drinkkireseptiin.
      */
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinColumn
     private List<Ainesosa> ainesosat;
     
@@ -194,6 +194,10 @@ public class Drinkkiresepti implements Serializable {
      * @see arkisto.Juomalaji#getDrinkit() 
      */
     public void setLaji(Juomalaji laji) {
+        if (laji == null) {
+            this.laji = null;
+            return;
+        }
         this.laji = laji;
         if (!laji.getDrinkit().contains(this)) // samalla kun asetetaan drinkille juomalaji,
             laji.getDrinkit().add(this); // asetetaan drinkki juomalajille
@@ -228,6 +232,10 @@ public class Drinkkiresepti implements Serializable {
      * @see arkisto.Ainesosa#getDrinkit() 
      */
     public void setAinesosat(List<Ainesosa> ainesosat) {
+        if (ainesosat == null) {
+            this.ainesosat = null;
+            return;
+        }
         this.ainesosat = ainesosat;
         
         for (int i=0; i < ainesosat.size(); ++i) { // kun drinkki saa listan siihen kuuluvista ainesosista

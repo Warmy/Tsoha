@@ -134,4 +134,30 @@ public class Rekisteri {
         return em.find(Drinkkiresepti.class, juomaId);
     }
     
+    // poistaa tietyn drinkin
+    public void poistaDrinkki(long drinkinId) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        
+        Drinkkiresepti poistettava = em.find(Drinkkiresepti.class, drinkinId); // etsitään poistettava
+        Juomalaji laji = poistettava.getLaji(); // poistettavan drinkin juomalaji
+        laji.getDrinkit().remove(poistettava); // tuhotaan juomalajilta viitteet poistettavaan drinkkiin
+        poistettava.setLaji(null); // ja drinkilta poistetaan viitteet juomalajiin
+        List<Ainesosa> osat = poistettava.getAinesosat();
+        
+        for (int i=0; i < osat.size(); ++i) { // poistetaan ainesosilta viitteet poistettavaan drinkkiin
+            osat.get(i).getDrinkit().remove(poistettava);
+        }
+        
+        poistettava.setAinesosat(null); // ja drinkiltä viitteet ainesosiin
+        
+        em.remove(poistettava); // haetaan drinkki tietokannasta ja poistetaan
+        em.getTransaction().commit();  
+    }
+    
+    public void paivitaDrinkki(Drinkkiresepti resepti) {
+        em = getEntityManager();
+        em.refresh(resepti);
+    }
+    
 }

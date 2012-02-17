@@ -37,7 +37,7 @@ public class ListaServlet extends HttpServlet {
             
             String tunnus = (String) request.getSession().getAttribute("tunnus");
             if (tunnus.equals("Admin")) // jos kirjautunut käyttäjä on admin, annetaan valtuudet
-                request.setAttribute("lajiJaAines", "AdminOK"); // lisätä juomalajeja ja ainesosia
+                request.setAttribute("AdminRights", "AdminOK"); // lisätä juomalajeja ja ainesosia
         }
         
         if (request.getParameter("sortByName") == null && request.getParameter("sortByCategory") == null)

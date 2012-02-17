@@ -90,7 +90,7 @@ color:#000
                     drinkin kaikki tiedot. -->
                     <td><a href="/Drinkkiarkisto/DrinkinTiedot?id=${drinkki.id}">${drinkki.nimi}</a></td>
                     <td>${drinkki.id}</td>
-                    <td>${drinkki.laji.nimi}</td>
+                    <td>${drinkki.laji.nimi}</td>   
                 </tr>
             </c:forEach>
                 </table>
@@ -141,7 +141,7 @@ color:#000
         
  
               <!-- Jos ei ole adminina kirjautunut sisään, ei voi lisätä juomalajia tai ainesosia -->
-              <c:if test="${not empty lajiJaAines}">
+              <c:if test="${not empty AdminRights}">
         
                   <h4>Lisää juomalaji</h4> 
         
