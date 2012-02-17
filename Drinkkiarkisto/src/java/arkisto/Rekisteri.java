@@ -155,9 +155,27 @@ public class Rekisteri {
         em.getTransaction().commit();  
     }
     
-    public void paivitaDrinkki(Drinkkiresepti resepti) {
+    public void poistaArvostelu(long arvosteluId) {
         em = getEntityManager();
-        em.refresh(resepti);
+        em.getTransaction().begin();
+        
+        Arvostelu poistettava = em.find(Arvostelu.class, arvosteluId); // etsitään poistettava arvostelu
+        Drinkkiresepti drinkki = poistettava.getResepti(); // etsitään drinkki, jolle arvostelu tehty
+        drinkki.getArvostelut().remove(poistettava); // poistetaan drinkiltä viitteet arvosteluun
+        poistettava.setResepti(null); // ja arvostelulta viitteet drinkkiin
+        
+        em.remove(poistettava);
+        em.getTransaction().commit();
+    }
+    
+    public void paivitaDrinkki(long drinkinId, String kuvaus, String ohjeet) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        Drinkkiresepti muokattava = em.find(Drinkkiresepti.class, drinkinId);
+        muokattava.setKuvaus(kuvaus);
+        muokattava.setOhjeet(ohjeet);
+        em.merge(muokattava);
+        em.getTransaction().commit();
     }
     
 }

@@ -145,6 +145,10 @@ public class Arvostelu implements Serializable {
      * @see arkisto.Drinkkiresepti#getArvostelut() 
      */
     public void setResepti(Drinkkiresepti resepti) {
+        if (resepti == null) {
+            this.resepti = resepti;
+            return;
+        }
         this.resepti = resepti;
         
         if (!resepti.getArvostelut().contains(this)) // samalla kun asetetaan arvostelulle drinkki

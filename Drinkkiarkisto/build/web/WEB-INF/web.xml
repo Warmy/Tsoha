@@ -44,6 +44,10 @@
         <servlet-name>MuokkaaDrinkkiaServlet</servlet-name>
         <servlet-class>arkisto.MuokkaaDrinkkiaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PoistaArvosteluServlet</servlet-name>
+        <servlet-class>arkisto.PoistaArvosteluServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>MuokkaaDrinkkiaServlet</servlet-name>
         <url-pattern>/MuokkaaDrinkkia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PoistaArvosteluServlet</servlet-name>
+        <url-pattern>/PoistaArvostelu</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

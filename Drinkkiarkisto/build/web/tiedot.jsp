@@ -55,19 +55,23 @@ color:#000
         <h1>Drinkin tiedot</h1>
         <div style="width:auto;height:auto;border:1px solid black;padding:10px">
             
-            <!-- Jos kirjauduttu admin-tunnuksilla sisään, voidaan poistaa drinkki -->
+            <!-- Jos kirjauduttu admin-tunnuksilla sisään, voidaan poistaa drinkki
+                 tai muokata drinkin tietoja -->
+            
             <c:if test="${not empty AdminRights}">
-            <form action="/Drinkkiarkisto/PoistaDrinkki"
+                <table border="0" cellpadding="2" cellspacing="1">
+            <td><form action="/Drinkkiarkisto/PoistaDrinkki"
                   method="POST">          
                 <input type="hidden" name="delete" value="${drinkinId}"/>        
                 <input type="submit" value="Poista drinkki"> 
-            </form> 
+            </form></td>
                 
-            <form action="/Drinkkiarkisto/MuokkaaDrinkkia"
+            <td><form action="/Drinkkiarkisto/MuokkaaDrinkkia"
                   method="GET">          
                 <input type="hidden" name="edit" value="${drinkinId}"/>        
-                <input type="submit" value="Muokkaa"> 
+                <input type="submit" value="Muokkaa"></td>
             </form> 
+                </table>
             </c:if>
             
         <p><b><font size="4px">Drinkin nimi: ${drinkinNimi}</font></b></p>
@@ -98,6 +102,17 @@ color:#000
                 <hr/>
                 ${arvostelu.teksti}</br>
                 </br>Arvosana: ${arvostelu.arvosana}/5</br>
+                
+                <c:if test="${not empty AdminRights}">
+
+                    <form action="/Drinkkiarkisto/PoistaArvostelu"     
+                          method="POST">              
+                        <input type="hidden" name="delete" value="${arvostelu.id}"/> 
+                        <input type="hidden" name="drinkinId" value="${drinkinId}"/>
+                        <input type="submit" value="Poista"> 
+                    </form>
+                </c:if>
+                
                 </div>
                 </br>
             </c:forEach>

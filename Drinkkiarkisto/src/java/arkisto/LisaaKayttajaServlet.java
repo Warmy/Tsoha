@@ -27,9 +27,6 @@ public class LisaaKayttajaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Kayttaja kayttaja = new Kayttaja("Jopi", "Jalkapuoli");
-        request.setAttribute("tunnus", kayttaja.getTunnus());
-        
         request.setAttribute("kayttajat", new Rekisteri().getKayttajat()); // annetaan pyynnön attribuutiksi lista käyttäjistä
         
         RequestDispatcher dispatcher =

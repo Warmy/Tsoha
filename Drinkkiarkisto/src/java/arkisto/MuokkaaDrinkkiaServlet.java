@@ -39,4 +39,32 @@ public class MuokkaaDrinkkiaServlet extends HttpServlet {
                 request.getRequestDispatcher("muokkaa.jsp");
         dispatcher.forward(request, response);
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String kuvaus = request.getParameter("kuvaus");
+        String ohjeet = request.getParameter("ohjeet");
+        String drinkId = request.getParameter("id");
+        
+        kuvaus = estaCrossSiteScripting(kuvaus);
+        ohjeet = estaCrossSiteScripting(ohjeet);
+        drinkId = estaCrossSiteScripting(drinkId);
+        long drinkinId = Long.parseLong(drinkId);
+        
+        if (kuvaus.length() > 0 && ohjeet.length() > 0) {        
+            rekisteri.paivitaDrinkki(drinkinId, kuvaus, ohjeet);
+            response.sendRedirect(request.getContextPath()+"/DrinkinTiedot?id="+drinkinId);
+        } else {
+            request.getRequestDispatcher("/Lista").forward(request, response); // jos tietoja puuttuu, ohjataan samalle sivulle
+            return;
+        }
+        
+    }
+    
+    private String estaCrossSiteScripting(String mjono) {
+        mjono = mjono.replace("<", "&lt;");
+        mjono = mjono.replace(">", "&gt;");
+        return mjono;
+    }
 }

@@ -13,11 +13,19 @@
     </head>
     <body>
         <h1>Muokkaa drinkkiä</h1>
-        ${homo}
+        
     <c:if test="${not empty drinkki}">
         ${drinkki.nimi}
         ${drinkki.id}
         <p> <font color="red">*</font> Tähdellä merkityt tiedot ovat pakollisia.</p>
+        <form action="${pageContext.request.contextPath}/MuokkaaDrinkkia"
+              method="post">          
+            Kuvaus: </br> <textarea name="kuvaus"></textarea> <br/>
+            <font color="red">*</font> Ohjeet: </br> <textarea name="ohjeet"></textarea> <br/>  
+            
+                    <input type="hidden" name="id" value="${drinkki.id}"/>
+                    <input type="submit" value="Lisää resepti"/>
+            </form>
     </c:if>
     </body>
 </html>

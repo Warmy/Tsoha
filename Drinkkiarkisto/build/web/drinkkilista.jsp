@@ -51,7 +51,11 @@ color:#000
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
         </ul>
-              <!-- Jos ei yhtään drinkkiä olemassa, älä tee mitään //-->   
+        
+        <c:if test="${empty juomat}">
+            <h2><br/><br/>Ei drinkkejä. Rekisteröidy ja lisää itse!</h2>
+        </c:if>
+              <!-- Jos ei yhtään drinkkiä olemassa, älä tee mitään //--> 
             <c:if test="${not empty juomat}">
                         <br/>  
                         <br/>

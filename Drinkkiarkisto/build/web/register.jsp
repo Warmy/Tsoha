@@ -74,9 +74,6 @@ color:#000
                   <c:if test="${not empty virhe2}">
                       <font color="red">${virhe2}</font>
                   </c:if>
-              </br>
-              ${tunnus}
-              </br>   
               
               <!-- listaa käyttäjät, jos heitä on //-->
               <h2>Käyttäjät</h2>
