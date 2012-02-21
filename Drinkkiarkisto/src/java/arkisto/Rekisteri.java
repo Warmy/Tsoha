@@ -135,7 +135,7 @@ public class Rekisteri {
         return em.find(Drinkkiresepti.class, juomaId);
     }
     
-    public List<Drinkkiresepti> haeDrinkkiHaunTuloksena(String sanat, ArrayList<Ainesosa> lista, long lajinId) {
+    public List<Drinkkiresepti> haeDrinkkiHaunTuloksena(String sanat, long lajinId) {
         em = getEntityManager();
         Juomalaji laji = em.find(Juomalaji.class, lajinId);
         

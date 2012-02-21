@@ -5,7 +5,6 @@
 package arkisto;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Lisää uuden käyttäjän tietokantaan.
+ * 
  */
 public class LisaaKayttajaServlet extends HttpServlet {
 
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
 
+    /**
+     * Ohjaa käyttäjän "register.jsp"-sivulle.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,6 +42,22 @@ public class LisaaKayttajaServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Lisää uuden käyttäjän tietokantaan lomakkeessa annettujen tietojen avulla.
+     * 
+     * Kun käyttäjä täyttää uuden käyttäjätunnuksen lisäämistä
+     * varten tarkoitetun lomakkeen sivulla "register.jsp", tämä metodi käsittelee
+     * lomakkeen tiedot. Jos syötteet ovat oikean pituisia ja tunnusta ei ole vielä olemassa,
+     * luodaan uusi Kayttaja-olio ja lisätään se Rekisteri-olion avulla tietokantaan ja
+     * lopuksi ohjataan käyttäjä samalle sivulle.
+     * 
+     * Jos tiedot olivat väärin, luodaan virheilmoitus ja ohjataan käyttäjä takaisin samalle sivulle,
+     * jossa virheilmoitus näytetään.
+     * 
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @see arkisto.Rekisteri#lisaaKayttaja(arkisto.Kayttaja) 
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -59,6 +83,17 @@ public class LisaaKayttajaServlet extends HttpServlet {
         }
     }
     
+    /**
+     * Tarkistaa onko käyttäjätunnus jo olemassa mitä yritetään luoda.
+     * 
+     * Jos käyttäjätunnus on olemassa, asetetaan pyynnön attribuutiksi virheilmoitus ja
+     * ohjataan vastuu doGet()-metodille.
+     * 
+     * @param tunnus Lomakkeessa annettu tunnus.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @return Tieto siitä onko käyttäjätunnus jo olemassa.
+     */
     private boolean onkoTunnusJoOlemassa(String tunnus, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (rekisteri.haeKayttaja(tunnus) != null) { // jos tunnus löytyy jo,
@@ -70,6 +105,12 @@ public class LisaaKayttajaServlet extends HttpServlet {
         return false;
     }
     
+    /**
+     * Estää "Cross-site Scripting"-hyökkäykset, joita voi esiintyä lomakkeisiin
+     * annetuissa syötteissä.
+     * @param mjono Lomakkeessa annettu syöte.
+     * @return Korjattu syöte.
+     */
     private String estaCrossSiteScripting(String mjono) {
         mjono = mjono.replace("<", "&lt;");
         mjono = mjono.replace(">", "&gt;");

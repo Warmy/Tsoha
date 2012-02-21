@@ -13,7 +13,7 @@ ul#list-nav {
 list-style:none;
 margin:0px;
 padding:0;
-width:700px
+width:800px
 }
 
 ul#list-nav li {
@@ -46,6 +46,7 @@ color:#000
         <ul id="list-nav">
             <li><a href="index.jsp">Etusivu</a></li>
             <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
+            <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
@@ -53,6 +54,7 @@ color:#000
         <br/>
         <h1>Etsi drinkki</h1>
     
+        <!-- Jos haku meni jollain tavalla pieleen, näytetään virheilmoitus -->
         <c:if test="${not empty virhe}">    
             <font color="red">${virhe}</font>    
         </c:if>
@@ -84,6 +86,7 @@ color:#000
             method="post">
             Hakusanat: </br><input type="text" name="sana" /><br/>
             
+            <br/>
             <!-- Drinkille valitaan sopiva juomalaji -->
             Juomalaji:               
             <select name="lajinId">          
@@ -92,15 +95,6 @@ color:#000
                     <option value="${laji.id}">${laji.nimi}</option>       
                 </c:forEach>    
             </select><br/>
-            
-            <!-- Drinkille valitaan siitä koostuvat ainesosat -->
-            <c:if test="${not empty ainesosat}">
-                Ainesosat:
-                <c:forEach var ="aines" items="${ainesosat}">
-                    <input type="checkbox" name="aines" value="${aines.nimi}"/> ${aines.nimi}
-                </c:forEach>
-                    </br>
-            </c:if>
             <input type="submit" value="Etsi"/>    
         </form>
     </body>

@@ -13,7 +13,7 @@ ul#list-nav {
 list-style:none;
 margin:0px;
 padding:0;
-width:700px
+width:800px
 }
 
 ul#list-nav li {
@@ -46,6 +46,7 @@ color:#000
         <ul id="list-nav">
             <li><a href="index.jsp">Etusivu</a></li>
             <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
+            <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>

@@ -5,7 +5,6 @@
 package arkisto;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Lisää uuden arvostelun tietylle drinkille tietokantaan.
+ * 
  */
 public class LisaaArvosteluServlet extends HttpServlet {
     
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
 
+    /**
+     * Ohjaa käyttäjän takaisin tälle servletille.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -28,12 +40,31 @@ public class LisaaArvosteluServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Ohjaa HTTP-pyynnön ja -vastauksen processRequest-metodille.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Lisää uuden arvostelun drinkille & tietokantaan lomakkeessa annettujen tietojen avulla.
+     * 
+     * Kun kirjautunut käyttäjä on generoidulla "tiedot.jsp"-sivulla täyttänyt lomakkeen, jolla
+     * arvostellaan kyseisellä sivulla esiintyvää drinkkiä, tämä metodi käsittelee lomakkeessa
+     * annetut tiedot. Lomakkeen mukana annetaan parametri "drinkId", joka kertoo mille drinkille
+     * arvostelu on kirjoitettu. Jos syötteet menevät tarkistuksista läpi, luodaan uusi Arvostelu-luokan
+     * ilmentymä ja lisätään se Rekisteri-olion avulla tietokantaan. Lopuksi ohjataan käyttäjä samalle
+     * sivulle, jossa uusi arvostelu nyt näkyy. Jos tiedot ovat väärin, ei tehdä mitään ja palataan
+     * samalle sivulle.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @see arkisto.Rekisteri#lisaaArvostelu(arkisto.Arvostelu) 
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -67,6 +98,12 @@ public class LisaaArvosteluServlet extends HttpServlet {
             
     }
     
+    /**
+     * Estää "Cross-site Scripting"-hyökkäykset, joita voi esiintyä lomakkeisiin
+     * annetuissa syötteissä.
+     * @param mjono Lomakkeessa annettu syöte.
+     * @return Korjattu syöte.
+     */
     private String estaCrossSiteScripting(String mjono) {
         mjono = mjono.replace("<", "&lt;");
         mjono = mjono.replace(">", "&gt;");
