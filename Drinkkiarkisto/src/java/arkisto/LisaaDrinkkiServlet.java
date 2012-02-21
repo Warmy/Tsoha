@@ -55,7 +55,7 @@ public class LisaaDrinkkiServlet extends HttpServlet {
                 if (ainesosa[i] != null) {
                 Ainesosa uusi = rekisteri.haeAinesosa(ainesosa[i]);
                 lista.add(uusi);
-                }   
+                }
             }
         }
         

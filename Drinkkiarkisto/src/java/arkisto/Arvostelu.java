@@ -28,7 +28,7 @@ public class Arvostelu implements Serializable {
     
     /**
      * 
-     * Drinkkireseptin yksilöivä pääavain relaatiotietokannassa.
+     * Arvostelun yksilöivä pääavain relaatiotietokannassa.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

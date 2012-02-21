@@ -52,7 +52,7 @@ public class MuokkaaDrinkkiaServlet extends HttpServlet {
         drinkId = estaCrossSiteScripting(drinkId);
         long drinkinId = Long.parseLong(drinkId);
         
-        if (kuvaus.length() > 0 && ohjeet.length() > 0) {        
+        if ((kuvaus.length() > 0 && kuvaus.length() <= 300) && (ohjeet.length() > 0 && ohjeet.length() <= 300)) {        
             rekisteri.paivitaDrinkki(drinkinId, kuvaus, ohjeet);
             response.sendRedirect(request.getContextPath()+"/DrinkinTiedot?id="+drinkinId);
         } else {

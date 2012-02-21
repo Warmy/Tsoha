@@ -13,9 +13,11 @@
     </head>
     <body>
         <h1>Drinkkiarkisto</h1>
-                <ul id="list-nav">
+                
+        <ul id="list-nav">
             <li><a href="index.jsp">Etusivu</a></li>
             <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
+             <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
             <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
             <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
             <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>

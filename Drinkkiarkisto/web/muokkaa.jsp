@@ -15,8 +15,6 @@
         <h1>Muokkaa drinkkiä</h1>
         
     <c:if test="${not empty drinkki}">
-        ${drinkki.nimi}
-        ${drinkki.id}
         <p> <font color="red">*</font> Tähdellä merkityt tiedot ovat pakollisia.</p>
         <form action="${pageContext.request.contextPath}/MuokkaaDrinkkia"
               method="post">          

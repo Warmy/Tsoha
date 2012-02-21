@@ -98,7 +98,7 @@ color:#000
             <h2> Arvostelut </h2>
             <c:forEach var="arvostelu" items="${drinkinArvostelut}">
                 <div style="width:auto;height:auto;border:1px solid black;padding:10px">
-                Nimimerkki: <b><font size="4px">${arvostelu.nimimerkki}</font></b></br> 
+                Käyttäjä: <b><font size="4px">${arvostelu.nimimerkki}</font></b></br> 
                 <hr/>
                 ${arvostelu.teksti}</br>
                 </br>Arvosana: ${arvostelu.arvosana}/5</br>
@@ -118,12 +118,15 @@ color:#000
             </c:forEach>
         </c:if>
 
+                <!-- Jos kirjautunut sisään, saa kirjoittaa arvosteluja. -->
+                <c:if test="${not empty ReviewRights}">
         <h3>Kirjoita arvostelu</h3>
         
         Arvostelun maksimipituus on 300 merkkiä.
+        <br/>
+        <br/>
         <form action="${pageContext.request.contextPath}/LisaaArvostelu"
               method="post">
-            Nimimerkki:</br> <input type="text" name="nick"/></br>
             Arvostelu:</br> <textarea name="arvostelu"></textarea></br>
             Arvosana: <input type="radio" name="arvo" value="1"/> 1
             <input type="radio" name="arvo" value="2" /> 2
@@ -133,5 +136,6 @@ color:#000
             <input type="hidden" name="drinkId" value="${drinkinId}"/>
             <input type="submit" value="Arvostele"/>
         </form>
+                </c:if>
     </body>
 </html>

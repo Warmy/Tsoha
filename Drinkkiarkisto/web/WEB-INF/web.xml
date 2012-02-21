@@ -48,6 +48,10 @@
         <servlet-name>PoistaArvosteluServlet</servlet-name>
         <servlet-class>arkisto.PoistaArvosteluServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HaeDrinkkiServlet</servlet-name>
+        <servlet-class>arkisto.HaeDrinkkiServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -95,6 +99,10 @@
     <servlet-mapping>
         <servlet-name>PoistaArvosteluServlet</servlet-name>
         <url-pattern>/PoistaArvostelu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HaeDrinkkiServlet</servlet-name>
+        <url-pattern>/HaeDrinkki</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

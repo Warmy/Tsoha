@@ -60,8 +60,15 @@ public class DrinkinTiedotServlet extends HttpServlet {
         request.setAttribute("drinkinArvostelut", drinkki.getArvostelut());
         request.setAttribute("drinkinAinesosat", drinkki.getAinesosat());
         
-        if (request.getSession().getAttribute("tunnus").equals("Admin")) // jos admin kirjautunut sisään,
+        if (request.getSession().getAttribute("tunnus") != null &&
+            request.getSession().getAttribute("tunnus").equals("Admin")) { // jos admin kirjautunut sisään,
             request.setAttribute("AdminRights", "AdminOK"); // annetaan oikeus poistaa/muokata drinkkejä
+            request.setAttribute("ReviewRights", "ReviewOK");  // ja poistaa/lisätä arvosteluja
+        }
+        
+        if (request.getSession().getAttribute("tunnus") != null) { // jos kirjautunut sisään, saa kirjoittaa arvosteluja
+            request.setAttribute("ReviewRights", "ReviewOK");
+        }
         
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("tiedot.jsp");

@@ -4,6 +4,7 @@
  */
 package arkisto;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -132,6 +133,22 @@ public class Rekisteri {
     public Drinkkiresepti haeDrinkki(long juomaId) {
         em = getEntityManager();
         return em.find(Drinkkiresepti.class, juomaId);
+    }
+    
+    public List<Drinkkiresepti> haeDrinkkiHaunTuloksena(String sanat, ArrayList<Ainesosa> lista, long lajinId) {
+        em = getEntityManager();
+        Juomalaji laji = em.find(Juomalaji.class, lajinId);
+        
+        Query q = null;
+        
+        if (laji != null) {
+            q = em.createQuery("SELECT d FROM Drinkkiresepti d WHERE d.nimi LIKE :nameParam and d.laji.nimi = :lajiParam");
+            q.setParameter("nameParam", sanat+"%").setParameter("lajiParam", laji.getNimi());
+        } else {
+            q = em.createQuery("SELECT d FROM Drinkkiresepti d WHERE d.nimi LIKE :nameParam");
+            q.setParameter("nameParam", sanat+"%"); // etsii juomat, jotka alkavat kyseisellä mjonolla
+        }
+        return q.getResultList();
     }
     
     // poistaa tietyn drinkin
