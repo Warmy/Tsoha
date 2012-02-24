@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -26,13 +27,14 @@ import javax.persistence.OneToMany;
  * Tietokantaan lisättävä drinkkiresepti.
  */
 @Entity
+@TableGenerator(name="tab", initialValue=0, allocationSize=1)
 public class Drinkkiresepti implements Serializable {
 
     /**
      * Drinkkireseptin yksilöivä pääavain.
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy=GenerationType.TABLE, generator="tab")
     private Long id;
     
     /**

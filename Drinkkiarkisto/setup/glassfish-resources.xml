@@ -11,4 +11,6 @@
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="drinkki" object-type="user" pool-name="derby_net_drinkit_dPool"/>
+    <jdbc-resource enabled="true" jndi-name="drink" object-type="user" pool-name="derby_net_drinkit_dPool"/>
+    <jdbc-resource enabled="true" jndi-name="drinkit" object-type="user" pool-name="derby_net_drinkit_dPool"/>
 </resources>

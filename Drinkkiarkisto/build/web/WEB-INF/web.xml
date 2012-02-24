@@ -2,55 +2,59 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
-        <servlet-class>arkisto.LisaaKayttajaServlet</servlet-class>
+        <servlet-class>servlets.LisaaKayttajaServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>arkisto.LoginServlet</servlet-class>
+        <servlet-class>servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LisaaDrinkkiServlet</servlet-name>
-        <servlet-class>arkisto.LisaaDrinkkiServlet</servlet-class>
+        <servlet-class>servlets.LisaaDrinkkiServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
-        <servlet-class>arkisto.LogoutServlet</servlet-class>
+        <servlet-class>servlets.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LisaaJuomalajiServlet</servlet-name>
-        <servlet-class>arkisto.LisaaJuomalajiServlet</servlet-class>
+        <servlet-class>servlets.LisaaJuomalajiServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListaServlet</servlet-name>
-        <servlet-class>arkisto.ListaServlet</servlet-class>
+        <servlet-class>servlets.ListaServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DrinkinTiedotServlet</servlet-name>
-        <servlet-class>arkisto.DrinkinTiedotServlet</servlet-class>
+        <servlet-class>servlets.DrinkinTiedotServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LisaaArvosteluServlet</servlet-name>
-        <servlet-class>arkisto.LisaaArvosteluServlet</servlet-class>
+        <servlet-class>servlets.LisaaArvosteluServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LisaaAinesosaServlet</servlet-name>
-        <servlet-class>arkisto.LisaaAinesosaServlet</servlet-class>
+        <servlet-class>servlets.LisaaAinesosaServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PoistaDrinkkiServlet</servlet-name>
-        <servlet-class>arkisto.PoistaDrinkkiServlet</servlet-class>
+        <servlet-class>servlets.PoistaDrinkkiServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MuokkaaDrinkkiaServlet</servlet-name>
-        <servlet-class>arkisto.MuokkaaDrinkkiaServlet</servlet-class>
+        <servlet-class>servlets.MuokkaaDrinkkiaServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PoistaArvosteluServlet</servlet-name>
-        <servlet-class>arkisto.PoistaArvosteluServlet</servlet-class>
+        <servlet-class>servlets.PoistaArvosteluServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>HaeDrinkkiServlet</servlet-name>
-        <servlet-class>arkisto.HaeDrinkkiServlet</servlet-class>
+        <servlet-class>servlets.HaeDrinkkiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PoistaJuomalajiServlet</servlet-name>
+        <servlet-class>servlets.PoistaJuomalajiServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>HaeDrinkkiServlet</servlet-name>
         <url-pattern>/HaeDrinkki</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PoistaJuomalajiServlet</servlet-name>
+        <url-pattern>/PoistaJuomalaji</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

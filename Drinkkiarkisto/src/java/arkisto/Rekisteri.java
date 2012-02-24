@@ -185,6 +185,15 @@ public class Rekisteri {
         em.getTransaction().commit();
     }
     
+    public void poistaJuomalaji(long lajinId) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        
+        Juomalaji poistettava = em.find(Juomalaji.class, lajinId); // etsitään poistettava juomalaji    
+        em.remove(poistettava); // poistetaan
+        em.getTransaction().commit();
+    }
+    
     public void paivitaDrinkki(long drinkinId, String kuvaus, String ohjeet) {
         em = getEntityManager();
         em.getTransaction().begin();

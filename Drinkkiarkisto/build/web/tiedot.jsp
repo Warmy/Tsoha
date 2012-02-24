@@ -11,12 +11,11 @@
     <meta charset="utf-8">
     <title>Drinkkiarkisto</title>
 
-    <!-- Le styles -->
-
     <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap.css" />
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        background-color: black;
       }
     </style>
     <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap-responsive.css" />
@@ -31,12 +30,13 @@
           <div class="nav-collapse">
             <ul class="nav">
 
-              <li class="active"><a href="index.jsp">Etusivu</a></li>
-              <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
-              <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
-              <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
-              <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
-              <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
+              <!-- Linkit eri sivuille -->
+              <li><a href="index.jsp"><span style="color: black">Etusivu</span></a></li>
+              <li><a href="/Drinkkiarkisto/Lista"><span style="color: black">Selaa</span></a></li>
+              <li><a href="/Drinkkiarkisto/HaeDrinkki"><span style="color: black">Hae</span></a></li>
+              <li><a href="/Drinkkiarkisto/Login"><span style="color: black">Kirjaudu sisään</span></a></li>
+              <li><a href="/Drinkkiarkisto/LisaaKayttaja"><span style="color: black">Rekisteröidy</span></a></li>
+              <li><a href="/Drinkkiarkisto/Logout"><span style="color: black">Kirjaudu ulos</span></a></li>
             </ul>
           </div>
         </div>
@@ -45,9 +45,10 @@
     </div>
         
         <div class="container">
+            <div class="hero-unit">
         
         <h1>Drinkin tiedot</h1>
-        <div style="width:auto;height:auto;border:1px solid black;padding:10px">
+        <div style="width:auto;height:auto;border:1px solid black;padding:10px;background-color: white">
             
             <!-- Jos kirjauduttu admin-tunnuksilla sisään, voidaan poistaa drinkki
                  tai muokata drinkin tietoja -->
@@ -92,7 +93,7 @@
             <br/>
             <h2> Arvostelut </h2>
             <c:forEach var="arvostelu" items="${drinkinArvostelut}">
-                <div style="width:auto;height:auto;border:1px solid black;padding:10px">
+                <div style="width:auto;height:auto;border:1px solid black;padding:10px;background-color: white">
                 Käyttäjä: <b><font size="4px">${arvostelu.nimimerkki}</font></b></br> 
                 <hr/>
                 ${arvostelu.teksti}</br>
@@ -132,7 +133,8 @@
             <input type="submit" value="Arvostele"/>
         </form>
                 </c:if>
-        
+        <font color="red">${virhe}</font>
+        </div>
         </div>
     </body>
 </html>

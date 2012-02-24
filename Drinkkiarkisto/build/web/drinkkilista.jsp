@@ -11,12 +11,11 @@
     <meta charset="utf-8">
     <title>Drinkkiarkisto</title>
 
-    <!-- Le styles -->
-
     <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap.css" />
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        background-color: black;
       }
     </style>
     <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap-responsive.css" />
@@ -30,12 +29,13 @@
           <div class="nav-collapse">
             <ul class="nav">
 
-              <li class="active"><a href="index.jsp">Etusivu</a></li>
-              <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
-              <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
-              <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
-              <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
-              <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
+              <!-- Linkit eri sivuille -->
+              <li><a href="index.jsp"><span style="color: black">Etusivu</span></a></li>
+              <li class="active"><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
+              <li><a href="/Drinkkiarkisto/HaeDrinkki"><span style="color: black">Hae</span></a></li>
+              <li><a href="/Drinkkiarkisto/Login"><span style="color: black">Kirjaudu sisään</span></a></li>
+              <li><a href="/Drinkkiarkisto/LisaaKayttaja"><span style="color: black">Rekisteröidy</span></a></li>
+              <li><a href="/Drinkkiarkisto/Logout"><span style="color: black">Kirjaudu ulos</span></a></li>
             </ul>
           </div>
         </div>
@@ -44,6 +44,7 @@
     </div>
         
     <div class="container">
+        <div class="hero-unit">
 
       <h1>Reseptilista</h1>
       
@@ -75,7 +76,7 @@
                 </table>
                               
                 <!-- Listaa drinkit -->
-                <table border="1" width="360" cellpadding="3" cellspacing="1">
+                <table border="1" width="360" cellpadding="3" cellspacing="1" style="background-color: white">
                     <tr>
                         <th>Nimi</th>
                         <th>Id</th>
@@ -131,8 +132,20 @@
               <h3>Juomalajit</h3>
               
             <ul>
-                <c:forEach var="laji" items="${lajit}">
-                    <li>${laji.nimi}</li>
+                <c:forEach var="laji" items="${lajit}">   
+                    <li>      
+                    ${laji.nimi}
+                        
+                    <!-- Jos kirjautunut adminina sisään, voi poistaa juomalajeja -->
+                    <c:if test="${not empty AdminRights}">
+                    <form action="/Drinkkiarkisto/PoistaJuomalaji"                    
+                          method="POST">                    
+                        <input type="hidden" name="delete" value="${laji.id}"/>                
+                        <input type="submit" value="Poista juomalaji"/>          
+                    </form>
+                    </c:if>
+                        
+                    </li>
                 </c:forEach>
             </ul>
     </c:if>
@@ -159,6 +172,6 @@
                         </form>
               </c:if>
         </div>
-        <img style="position:fixed; TOP:60px; LEFT:750px; WIDTH:658px; HEIGHT:831px" src="kuvat/10.PNG"/>
+    </div>
     </body>
 </html>

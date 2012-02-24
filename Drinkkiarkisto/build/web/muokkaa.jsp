@@ -11,12 +11,11 @@
     <meta charset="utf-8">
     <title>Drinkkiarkisto</title>
 
-    <!-- Le styles -->
-
     <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap.css" />
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        background-color: black;
       }
     </style>
     <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap-responsive.css" />
@@ -28,11 +27,11 @@
           <div class="container">
           <a class="brand">Drinkkiarkisto</a>
           </div>
-      </div>
-        
+      </div>       
     </div>
         
         <div class="container">
+            <div class="hero-unit">
         <h1>Muokkaa drinkkiä</h1>
         
     <c:if test="${not empty drinkki}">
@@ -47,6 +46,9 @@
             </form> 
     </c:if>
         
+        <font color="red">${virhe}</font>
+        
+        </div>
         </div>
     </body>
 </html>
