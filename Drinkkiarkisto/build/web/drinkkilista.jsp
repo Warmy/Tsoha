@@ -8,58 +8,51 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css">
-ul#list-nav {
-list-style:none;
-margin:0px;
-padding:0;
-width:800px
-}
+    <meta charset="utf-8">
+    <title>Drinkkiarkisto</title>
 
-ul#list-nav li {
-display:inline
-}
+    <!-- Le styles -->
 
-ul#list-nav li a {
-text-decoration:none;
-margin-right:5px;
-padding:5px 0;
-width:120px;
-font-size:16px;
-background:skyblue;
-float:left;
-text-align:center;
-border-style:solid;
-border-width:2px;
-}
-
-ul#list-nav li a:hover {
-background:#a2b3a1;
-color:#000
-}
-</style>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Reseptilista</title>
+    <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap.css" />
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap-responsive.css" />
     </head>
     <body>
-        <h1>Reseptilista</h1>
         
-        <ul id="list-nav">
-            <li><a href="index.jsp">Etusivu</a></li>
-            <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
-            <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
-            <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
-            <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
-            <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
-        </ul>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand">Drinkkiarkisto</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+
+              <li class="active"><a href="index.jsp">Etusivu</a></li>
+              <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
+              <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
+              <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
+              <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
+              <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
         
+    </div>
+        
+    <div class="container">
+
+      <h1>Reseptilista</h1>
+      
         <c:if test="${empty juomat}">
-            <h2><br/><br/>Ei drinkkejä. Rekisteröidy ja lisää itse!</h2>
+            <p><font size="4px"><br/>Ei drinkkejä. Rekisteröidy ja lisää itse!</font></p>
         </c:if>
               <!-- Jos ei yhtään drinkkiä olemassa, älä tee mitään //--> 
             <c:if test="${not empty juomat}">
                         <br/>  
-                        <br/>
                         <br/>
                 
                 <!-- kutsuu servletin doGet-metodia, joka järjestää drinkit nimen, lajin tai ainesosan mukaan -->
@@ -145,7 +138,7 @@ color:#000
     </c:if>
         
  
-              <!-- Jos ei ole adminina kirjautunut sisään, ei voi lisätä juomalajia tai ainesosia -->
+              <!-- Jos ei ole adminina kirjautunut sisään, ei voi lisätä juomalajia tai ainesosia -->  
               <c:if test="${not empty AdminRights}">
         
                   <h4>Lisää juomalaji</h4> 
@@ -165,5 +158,7 @@ color:#000
                             <input type="submit" value="Lisää ainesosa"/>
                         </form>
               </c:if>
+        </div>
+        <img style="position:fixed; TOP:60px; LEFT:750px; WIDTH:658px; HEIGHT:831px" src="kuvat/10.PNG"/>
     </body>
 </html>

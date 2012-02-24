@@ -8,10 +8,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Muokkaa drinkkiä</title>
+    <meta charset="utf-8">
+    <title>Drinkkiarkisto</title>
+
+    <!-- Le styles -->
+
+    <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap.css" />
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap-responsive.css" />
     </head>
     <body>
+        
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <div class="container">
+          <a class="brand">Drinkkiarkisto</a>
+          </div>
+      </div>
+        
+    </div>
+        
+        <div class="container">
         <h1>Muokkaa drinkkiä</h1>
         
     <c:if test="${not empty drinkki}">
@@ -23,7 +44,9 @@
             
                     <input type="hidden" name="id" value="${drinkki.id}"/>
                     <input type="submit" value="Lisää resepti"/>
-            </form>
+            </form> 
     </c:if>
+        
+        </div>
     </body>
 </html>

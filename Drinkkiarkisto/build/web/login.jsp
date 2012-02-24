@@ -8,54 +8,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style type="text/css">
-ul#list-nav {
-list-style:none;
-margin:0px;
-padding:0;
-width:800px
-}
+    <meta charset="utf-8">
+    <title>Drinkkiarkisto</title>
 
-ul#list-nav li {
-display:inline
-}
+    <!-- Le styles -->
 
-ul#list-nav li a {
-text-decoration:none;
-margin-right:5px;
-padding:5px 0;
-width:120px;
-font-size:16px;
-background:skyblue;
-float:left;
-text-align:center;
-border-style:solid;
-border-width:2px;
-}
-
-ul#list-nav li a:hover {
-background:#a2b3a1;
-color:#000
-}
-</style>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap.css" />
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/Drinkkiarkisto/bootstrap/css/bootstrap-responsive.css" />
     </head>
     <body>
-        <h1>Kirjaudu sisään</h1>
         
-        <ul id="list-nav">
-            <li><a href="index.jsp">Etusivu</a></li>
-            <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
-            <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
-            <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
-            <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
-            <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
-        </ul>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+            
+          <a class="brand">Drinkkiarkisto</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+
+              <li class="active"><a href="index.jsp">Etusivu</a></li>
+              <li><a href="/Drinkkiarkisto/Lista">Selaa</a></li>
+              <li><a href="/Drinkkiarkisto/HaeDrinkki">Hae</a></li>
+              <li><a href="/Drinkkiarkisto/Login">Kirjaudu sisään</a></li>
+              <li><a href="/Drinkkiarkisto/LisaaKayttaja">Rekisteröidy</a></li>
+              <li><a href="/Drinkkiarkisto/Logout">Kirjaudu ulos</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
         
-        <br/>
-        <br/>
-        <br/>
+    </div>
+        
+        <div class="container">
+        <div class="btn">
+            <h1>Kirjaudu sisään</h1>
                     
         <form action="${pageContext.request.contextPath}/Login" 
             method="POST">
@@ -71,6 +62,7 @@ color:#000
         <font color="red">${virhe}</font>    
     </c:if>
     
-    
+        </div>
+        </div>
     </body>
 </html>
