@@ -62,7 +62,9 @@ public class LisaaArvosteluServlet extends HttpServlet {
      * arvostellaan kyseisellä sivulla esiintyvää drinkkiä, tämä metodi käsittelee lomakkeessa
      * annetut tiedot. Lomakkeen mukana annetaan parametri "drinkId", joka kertoo mille drinkille
      * arvostelu on kirjoitettu. Jos syötteet menevät tarkistuksista läpi, luodaan uusi Arvostelu-luokan
-     * ilmentymä ja lisätään se Rekisteri-olion avulla tietokantaan. Lopuksi ohjataan käyttäjä samalle
+     * ilmentymä ja lisätään se Rekisteri-olion avulla tietokantaan. 
+     * 
+     * Lopuksi ohjataan käyttäjä samalle
      * sivulle, jossa uusi arvostelu nyt näkyy. Jos tiedot ovat väärin, ei tehdä mitään ja palataan
      * samalle sivulle ja näytetään virheilmoitus.
      * @param request HTTP-pyyntö.

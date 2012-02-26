@@ -41,7 +41,12 @@ public class DrinkinTiedotServlet extends HttpServlet {
      * on linkki, joka vie tähän servletiin. Linkin klikkauksen myötä servletille on
      * annettu drinkin yksilöivä pääavain, jonka metodi nappaa. Pääavaimen perusteella
      * haetaan drinkki tietokannasta ja asetetaan pyynnön attribuuteiksi kaikki drinkin
-     * tiedot. 
+     * tiedot. Jos on kirjautunut adminina sisään, luodaan attribuutti "AdminRights",
+     * jonka ansiosta sivulla voi sitten poistaa drinkkireseptin/arvosteluja tai muokata
+     * arvosteluja.
+     * 
+     * Jos on ylipäätään kirjautunut sisään, luodaan attribuutti "ReviewRights", jonka
+     * ansiosta sivulla voi luoda uusia arvosteluja drinkkireseptille.
      * 
      * Tämän jälkeen ohjataan pyyntö "tiedot.jsp"-sivulle, joka näyttää
      * HTML-sivulla attribuutteina annetut drinkin tiedot.

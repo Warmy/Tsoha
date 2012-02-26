@@ -6,7 +6,6 @@ package servlets;
 
 import arkisto.Rekisteri;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author Keni
+ * Listaa drinkkireseptit.
+ * @author Kenny Heinonen
  * Asettaa drinkkilista.jsp-sivulle attribuutteja ja sisältää metodit, joiden avulla
  * voi järjestää listattavat drinkit nimen, juomalajin tai ainesosan mukaan.
  */
@@ -28,7 +27,21 @@ public class ListaServlet extends HttpServlet {
             throws ServletException, IOException {
     }
 
-    
+    /**
+     * Kun käyttäjä menee "drinkkilista.jsp"-sivulle, käydään tässä servletissä ensin.
+     * Jos käyttäjä on kirjautunut sisään, luodaan attribuutti, jolla annetaan sivulla
+     * oikeus lisätä uusia drinkkejä. Jos on kirjautunut adminina sisään, luodaan attribuutti,
+     * jolla annetaan oikeus lisätä/poistaa juomalajeja & ainesosia.
+     * 
+     * Jos kyseisellä sivulla käyttäjä painoi lomaketta, jolla järjestetään listatut
+     * drinkkireseptit nimen tai juomalajin mukaan, tehdään se. Joka tapauksessa
+     * asetetaan attribuutti, jossa on arvona lista drinkkiresepteistä.
+     * 
+     * Lopuksi aina asetetaan attribuutit, joissa on arvoina lista juomalajeista
+     * ja ainesosista ja tämän jälkeen ohjataan käyttäjä "drinkkilista.jsp"-sivulle.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,7 +55,7 @@ public class ListaServlet extends HttpServlet {
         }
         
         if (request.getParameter("sortByName") == null && request.getParameter("sortByCategory") == null)
-            request.setAttribute("juomat", new Rekisteri().getJuomat()); // pyynnön attribuutiksi lista juomista
+            request.setAttribute("juomat", rekisteri.getJuomat()); // pyynnön attribuutiksi lista juomista
         else if (request.getParameter("sortByName") != null)
             jarjestaNimenMukaan(request); // jos painettiin form-nappia "järjestä nimen mukaan", järjestetään juomat nimen mukaan
         else if (request.getParameter("sortByCategory") != null)
@@ -57,33 +70,58 @@ public class ListaServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
+    /**
+     * Ohjaa POST-pyynnöt kyseiselle osoitteelle, jossa satutaan olemaan ja yleensä
+     * mennään sitä rataa suorittamaan doGet()-metodi.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          response.sendRedirect(request.getRequestURI()); // POST-pyynnöt ohjataan doGetille, esim LisaaKayttajan doPost ohjaa
     }                                                   // pyynnön tämän servletin doPost-metodiin, joka ohjaa sen doGet:iin
     
-    // järjestää drinkkilistan nimen perusteella nousevaan tai laskevaan järjestykseen
+    /**
+     * Järjestää drinkkilistan nimen perusteella nousevaan tai laskevaan järjestykseen.
+     * 
+     * Jos boolean-muuttuja jarjestys on true, palautetaan lista drinkeistä nimen perusteella
+     * laskevassa järjestyksessä ja asetetaan jarjestys = false, jolloin seuraavalla kerralla, kun
+     * tähän metodiin tullaan, niin palautetaan lista drinkeistä nimen perusteella nousevassa
+     * järjestyksessä, jolloin jarjestys-muuttujan arvo taas vaihtuu.
+     * @param request HTTP-pyyntö.
+     */
     private void jarjestaNimenMukaan(HttpServletRequest request)
         throws ServletException, IOException {
         
         if (request.getParameter("sortByName") != null && jarjestys) { // jos painettiin, sort-nappia, järjestetään
-            request.setAttribute("juomat", new Rekisteri().getOrderedJuomat()); // juomat laskevasti
+            request.setAttribute("juomat", rekisteri.getOrderedJuomat()); // juomat laskevasti
             jarjestys = false;
         } else if (request.getParameter("sortByName") != null && !jarjestys) { // jos juomat on jo järjestetty laskevasti ja painetaan
-            request.setAttribute("juomat", new Rekisteri().getJuomat()); // nappia sort, palautetaan alkuperäinen järjestys
+            request.setAttribute("juomat", rekisteri.getJuomat()); // nappia sort, palautetaan alkuperäinen järjestys
             jarjestys = true;
         }  
     }
 
+    /**
+     * Järjestää drinkkilistan juomalajin perusteella nousevaan tai laskevaan järjestykseen.
+     * 
+     * Jos boolean-muuttuja jarjestys on true, palautetaan lista drinkeistä juomalajin perusteella
+     * nousevassa järjestyksessä ja asetetaan jarjestys = false, jolloin seuraavalla kerralla, kun
+     * tähän metodiin tullaan, niin palautetaan lista drinkeistä juomalajin perusteella laskevassa
+     * järjestyksessä, jolloin jarjestys-muuttujan arvo taas vaihtuu.
+     * @param request HTTP-pyyntö.
+     */
     private void jarjestaLajinMukaan(HttpServletRequest request)
         throws ServletException, IOException {
         
         if (request.getParameter("sortByCategory") != null && jarjestys) { // jos painettiin, sort-nappia, järjestetään
-            request.setAttribute("juomat", new Rekisteri().sortJuomatByLajitAsc()); // juomat lajin perusteella nousevasti
+            request.setAttribute("juomat", rekisteri.sortJuomatByLajitAsc()); // juomat lajin perusteella nousevasti
             jarjestys = false;
         } else if (request.getParameter("sortByCategory") != null && !jarjestys) { // jos juomat on jo järjestetty lajin mukaan nousevasti ja painetaan
-            request.setAttribute("juomat", new Rekisteri().sortJuomatByLajitDesc()); // nappia sort, järjestetään lajin mukaan laskevasti
+            request.setAttribute("juomat", rekisteri.sortJuomatByLajitDesc()); // nappia sort, järjestetään lajin mukaan laskevasti
             jarjestys = true;
         }  
     }

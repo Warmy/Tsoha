@@ -7,8 +7,6 @@ package servlets;
 import arkisto.Juomalaji;
 import arkisto.Rekisteri;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,23 +14,65 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Poistaa juomalajin tietokannasta.
+ * 
  */
 public class PoistaJuomalajiServlet extends HttpServlet {
 
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
     
+    /**
+     * Poistaa juomalajin tietokannasta.
+     * 
+     * Kun admin painaa "drinkkilista.jsp"-sivulla kyseisen juomalajin kohdalta
+     * "Poista"-nappia, tullaan tähän servletiin. Napin mukana annettiin parametrina
+     * poistettavan juomalajin pääavain. Jos mikään drinkkiresepti ei kuulu kyseiseen
+     * juomalajiin, poistetaan se Rekisteri-olion avulla tietokannasta.
+     * 
+     * Lopuksi ohjataan käyttäjä Lista-servletille.
+     * 
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @see arkisto.Rekisteri#poistaJuomalaji(long) 
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {    
-        long lajinId = Long.parseLong(request.getParameter("delete")); // napataan drinkin id  
+            throws ServletException, IOException {
+        
+        if (!onKirjautunut(request, response)) // tarkistetaan onko adminina kirjautunut
+            return;
+        
+        long lajinId = Long.parseLong(request.getParameter("id")); // napataan drinkin id  
         Juomalaji laji = rekisteri.haeJuomalaji(lajinId);
         
         if (laji.getDrinkit().isEmpty())
             rekisteri.poistaJuomalaji(lajinId); // poistetaan juomalaji tietokannasta, jos siihen ei kuulu mitään drinkkejä
         
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/Lista");
-        dispatcher.forward(request, response);
+        response.sendRedirect(request.getContextPath()+"/Lista");
+    }
+    
+    /**
+     * Tarkistaa, että käyttäjä on kirjautunut sisään adminina eli hänellä on istunto "meneillään".
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @return Tieto siitä onko kirjautunut vai ei.
+     */
+    private boolean onKirjautunut(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        String tunnus = (String) request.getSession().getAttribute("tunnus");
+        
+        if (tunnus != null && tunnus.equals("Admin")) { 
+            return true;
+        } else {                                                      // jos istunnon aikana ei ole kirjauduttu sisään
+            response.sendRedirect(request.getContextPath()+"/Lista"); // ohjataan takaisin kirjautumissivulle
+            return false;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

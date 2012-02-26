@@ -17,16 +17,29 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Kirjaudutaan sisään web-sovellukselle.
+ * 
  */
 public class LoginServlet extends HttpServlet {
 
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
 
+    /**
+     * Ohjaa käyttäjän "login.jsp"-sivulle.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -36,6 +49,19 @@ public class LoginServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Kirjaa käyttäjän sisään web-sovellukseen.
+     * 
+     * Kun käyttäjä täyttää kirjautumislomakkeen "login.jsp"-sivulla, tämä metodi
+     * nappaa lomakkeessa annetut tiedot. Jos tiedoilla löydetään tietokannasta
+     * käyttäjä ja salasana vastaa tietokannasta haetun käyttäjätunnuksen salasanaa,
+     * luodaan uusi istunto ja ohjataan käyttäjä Lista-servletille.
+     * 
+     * Jos tiedot olivat virheelliset, ohjataan käyttäjä takaisin "login.jsp"-sivulle
+     * ja näytetään virheilmoitus.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,7 +74,7 @@ public class LoginServlet extends HttpServlet {
          * Lomakkeen mukana lähetetty tunnus ja salasana napataan ja jos
          * tunnus ja salasana ovat oikein, luodaan uusi istunto, jonka
          * attribuutiksi asetetaan juuri luotu tunnus ja käyttäjä ohjataan
-         * etusivulle.
+         * drinkkilista-sivulle.
          */
         
         if (kayttaja != null && kayttaja.getTunnus().equals(tunnus) && kayttaja.getSalasana().equals(salasana)) {

@@ -85,7 +85,7 @@ public class Drinkkiresepti implements Serializable {
      * ovat Ainesosa-olioita, joille päivitetään tieto siitä, että nämä oliot
      * kuuluvat tähän drinkkireseptiin.
      */
-    @ManyToMany(cascade = CascadeType.REFRESH)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn
     private List<Ainesosa> ainesosat;
     

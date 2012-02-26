@@ -6,8 +6,6 @@ package servlets;
 
 import arkisto.Rekisteri;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,19 +13,61 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Poistaa arvostelun tietokannasta.
  */
 public class PoistaArvosteluServlet extends HttpServlet {
     
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
 
+    /**
+     * Poistaa arvostelun tietokannasta.
+     * 
+     * Kun admin painaa "Poista"-nappia sivulla, jossa näytetään tietyn drinkin
+     * tiedot ja siihen liittyvät arvostelut, tullaan tähän servletiin. Nappia
+     * painaessa annetaan parametrina arvostelun pääavain.
+     * 
+     * Poistettavan arvostelun pääavaimella voidaan Rekisteri-olion avulla poistaa
+     * arvostelu tietokannasta. Lopuksi ohjataan käyttäjä takaisin samalle sivulle.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @see arkisto.Rekisteri#poistaArvostelu(long) 
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        if (!onKirjautunut(request, response)) // tarkistetaan onko adminina kirjautunut
+            return;
+        
         long arvosteluId = Long.parseLong(request.getParameter("delete")); // napataan drinkin id  
         rekisteri.poistaArvostelu(arvosteluId); // poistetaan drinkki tietokannasta
         
         long drinkinId = Long.parseLong(request.getParameter("drinkinId"));
         response.sendRedirect(request.getContextPath()+"/DrinkinTiedot?id="+drinkinId);
+    }
+    
+    /**
+     * Tarkistaa, että käyttäjä on kirjautunut sisään adminina eli hänellä on istunto "meneillään".
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @return Tieto siitä onko kirjautunut vai ei.
+     */
+    private boolean onKirjautunut(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        String tunnus = (String) request.getSession().getAttribute("tunnus");
+        
+        if (tunnus != null && tunnus.equals("Admin")) { 
+            return true;
+        } else {                                                      // jos istunnon aikana ei ole kirjauduttu sisään
+            response.sendRedirect(request.getContextPath()+"/Lista"); // ohjataan takaisin kirjautumissivulle
+            return false;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -6,9 +6,6 @@ package servlets;
 
 import arkisto.Rekisteri;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,8 +68,10 @@ public class HaeDrinkkiServlet extends HttpServlet {
      * lomakkeessa annetut tiedot eli hakusanan ja mahdollisen juomalajin.
      * Tiedot syötetään Rekisteri-olion metodille, joka tekee kyselyn ja palauttaa
      * listan drinkkejä, jotka sopivat annettuihin tietoihin.
+     * 
      * Tämän jälkeen ohjataan käyttäjä "hae.jsp"-sivulle, jossa löydetyt drinkit
-     * ovat listattuna. Jos hakusana oli kelvoton, näytetään virheilmoitus.
+     * ovat listattuna. Jos hakusana oli kelvoton tai haku ei tuottanut tuloksia,
+     * näytetään virheilmoitus.
      * @param request HTTP-pyyntö.
      * @param response HTTP-vastaus.
      * @see arkisto.Rekisteri#haeDrinkkiHaunTuloksena(java.lang.String, long) 

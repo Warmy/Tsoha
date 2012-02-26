@@ -4,7 +4,6 @@
  */
 package arkisto;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,22 +14,41 @@ import javax.persistence.Query;
  *
  * @author Keni
  */
+
+/**
+ * Tietokantaoperaatioita hoitava rekisteri.
+ *
+ */
 public class Rekisteri {
     
-    private EntityManager em; // tallennetaan, poistetaan ja haetaan entiteettejä
+    /**
+     * Käsittelee entiteettejä eli lisää olioita tietokantaan, hakee
+     * olioita tietokannasta, poistaa olioita tietokannasta yms.
+     */
+    private EntityManager em;
     
     private EntityManagerFactory emf = null;
 
+    /**
+     * Luo uuden rekisterin.
+     */
     public Rekisteri() {
         // käytetään "DrinkkiarkistoPU"-konfiguraatiota
         emf = Persistence.createEntityManagerFactory("DrinkkiarkistoPU");
     }
     
+    /**
+     * 
+     * @return Palauttaa tietokantaa käsittelevan EntityManager-olion. 
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
     
-    // lisää uuden käyttäjän tietokantaan
+    /**
+     * Lisää uuden käyttäjän tietokantaan.
+     * @param uusi Uusi käyttäjä.
+     */
     public void lisaaKayttaja(Kayttaja uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -38,8 +56,14 @@ public class Rekisteri {
         em.getTransaction().commit();     
     }
     
-    // lisää uuden arvostelun tietokantaan, mergen avulla päivitetään drinkin
-    // tila tietokannassa, koska drinkille lisättiin uusi arvostelu
+    /**
+     * Lisää uuden arvostelun tietokantaan.
+     * 
+     * Mergen avulla päivitetään myös drinkkireseptin tila tietokannassa,
+     * koska drinkille lisättiin uusi arvostelu (eli arvostelulla on viite
+     * drinkkireseptiin).
+     * @param uusi Uusi arvostelu.
+     */
     public void lisaaArvostelu(Arvostelu uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -47,7 +71,14 @@ public class Rekisteri {
         em.getTransaction().commit();
     }
     
-    // lisää uuden drinkin tietokantaan
+    /**
+     * Lisää uuden drinkkireseptin tietokantaan.
+     * 
+     * Mergen avulla päivitetään myös drinkkiin kuuluvien ainesosien
+     * ja juomalajien tila tietokannassa, koska drinkillä on viitteet
+     * sille lisättyihin ainesosiin ja juomalajeihin.
+     * @param uusi Uusi drinkkiresepti.
+     */
     public void lisaaDrinkki(Drinkkiresepti uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -55,7 +86,10 @@ public class Rekisteri {
         em.getTransaction().commit();     
     }
     
-    // lisää uuden juomalajin tietokantaan
+    /**
+     * Lisää uuden juomalajin tietokantaan.
+     * @param uusi Uusi juomalaji.
+     */
     public void lisaaJuomalaji(Juomalaji uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -63,7 +97,10 @@ public class Rekisteri {
         em.getTransaction().commit();   
     }
     
-    // lisää uuden ainesosan tietokantaan
+    /**
+     * Lisää uuden ainesosan tietokantaan.
+     * @param uusi Uusi ainesosa.
+     */
     public void lisaaAinesosa(Ainesosa uusi) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -71,71 +108,123 @@ public class Rekisteri {
         em.getTransaction().commit();
     }
     
-    // lista drinkeistä, järjestetty nousevasti juomalajin perusteella
+    /**
+     * Lista drinkeistä, jotka on järjestetty nousevasti juomalajin nimen perusteella.
+     * @return Järjestetty lista drinkkiresepteistä.
+     */
     public List<Drinkkiresepti> sortJuomatByLajitAsc() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.laji.nimi asc").getResultList(); 
     }
     
-    // lista drinkeistä, järjestetty laskevasti juomalajin perusteella
+    /**
+     * Lista drinkeistä, jotka on järjestetty laskevasti juomalajin nimen perusteella.
+     * @return Järjestetty lista drinkkiresepteistä.
+     */
     public List<Drinkkiresepti> sortJuomatByLajitDesc() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.laji.nimi desc").getResultList();
     }
     
-    // palauttaa listan kaikista käyttäjistä
+    /**
+     * Palauttaa listan kaikista käyttäjistä.
+     * @return Lista kaikista käyttäjistä.
+     */
     public List<Kayttaja> getKayttajat() {
         em = getEntityManager();
         return em.createQuery("SELECT u FROM Kayttaja u").getResultList();
     }
     
+    /**
+     * Palauttaa listan kaikista juomalajeista.
+     * @return Lista kaikista juomalajeista.
+     */
     public List<Juomalaji> getJuomaLajit() {
         em = getEntityManager();
         return em.createQuery("SELECT j FROM Juomalaji j").getResultList();
     }
     
+    /**
+     * Palauttaa listan kaikista ainesosista.
+     * @return Lista kaikista ainesosista.
+     */
     public List<Ainesosa> getAinesOsat() {
         em = getEntityManager();
         return em.createQuery("SELECT a FROM Ainesosa a").getResultList();
     }
     
-    // palauttaa listan kaikista juomista
+    /**
+     * Palauttaa listan kaikista drinkkiresepteistä, jotka on järjestetty nousevasti
+     * drinkin nimen mukaan.
+     * @return Nousevasti järjestetty lista kaikista drinkeistä.
+     */
     public List<Drinkkiresepti> getJuomat() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.nimi asc").getResultList();
     }
     
-    // laskevasti järjestetty lista juomista
+    /**
+     * Palauttaa listan kaikista drinkkiresepteistä, jotka on järjestetty laskevasti
+     * drinkin nimen mukaan.
+     * @return Laskevasti järjestetty lista kaikista drinkeistä.
+     */
     public List<Drinkkiresepti> getOrderedJuomat() {
         em = getEntityManager();
         return em.createQuery("SELECT d FROM Drinkkiresepti d ORDER BY d.nimi desc").getResultList();
     }
     
-    // etsii pääavaimen perusteella haettavan juomalajin
+    /**
+     * Hakee juomalajin tietokannasta annetun pääavaimen perusteella.
+     * @param lajinId Etsittävän juomalajin pääavain.
+     * @return Haettu juomalaji.
+     */
     public Juomalaji haeJuomalaji(long lajinId) {
         em = getEntityManager();
         return em.find(Juomalaji.class, lajinId);
     }
     
-    // etsii pääavaimen perusteella haettavan ainesosan
+    /**
+     * Hakee ainesosan tietokannasta annetun pääavaimen perusteella.
+     * @param tunnus Etsittävän ainesosan pääavain (ainesosan nimi).
+     * @return Haettu ainesosa.
+     */
     public Ainesosa haeAinesosa(String tunnus) {
         em = getEntityManager();
         return em.find(Ainesosa.class, tunnus);
     }
     
-    // etsii tietokannasta käyttäjän tämän tunnuksen perusteella, joka on pääavain
+    /**
+     * Hakee käyttäjän tietokannasta annetun pääavaimen perusteella.
+     * @param tunnus Etsittävän käyttäjän pääavain (käyttäjätunnus).
+     * @return Haettu käyttäjä.
+     */
     public Kayttaja haeKayttaja(String tunnus) {
         em = getEntityManager();
         return em.find(Kayttaja.class, tunnus); // etsii kayttaja-luokan ilmentymän tämän tunnuksella
     }
     
-    // etsii tietokannasta drinkin tämän id:n perusteella, joka on pääavain
+    /**
+     * Hakee drinkkireseptin tietokannasta annetun pääavaimen perusteella.
+     * @param juomaId Etsittävän drinkkireseptin pääavain.
+     * @return Haettu drinkkiresepti.
+     */
     public Drinkkiresepti haeDrinkki(long juomaId) {
         em = getEntityManager();
         return em.find(Drinkkiresepti.class, juomaId);
     }
     
-    public List<Drinkkiresepti> haeDrinkkiHaunTuloksena(String sanat, long lajinId) {
+    /**
+     * Hakee listan drinkkiresepteistä annetun hakusanan ja juomalajin perusteella.
+     * 
+     * Metodi hakee tietokannasta kaikki drinkkireseptit, jotka alkavat annetulla
+     * hakusanalla tai vastaavat annettua hakusanaa. Jos parametrina annettiin myös
+     * juomalaji, johon haettava drinkki kuuluu, se rajaa haun tulosta etsien hakusanalla
+     * vain niitä drinkkejä, jotka kuuluvat annettuun juomalajiin.
+     * @param sanaa Hakusana.
+     * @param lajinId Haettavien drinkkien juomalaji.
+     * @return Lista drinkeistä, jotka haulla löydettiin.
+     */
+    public List<Drinkkiresepti> haeDrinkkiHaunTuloksena(String sana, long lajinId) {
         em = getEntityManager();
         Juomalaji laji = em.find(Juomalaji.class, lajinId);
         
@@ -143,15 +232,24 @@ public class Rekisteri {
         
         if (laji != null) {
             q = em.createQuery("SELECT d FROM Drinkkiresepti d WHERE d.nimi LIKE :nameParam and d.laji.nimi = :lajiParam");
-            q.setParameter("nameParam", sanat+"%").setParameter("lajiParam", laji.getNimi());
+            q.setParameter("nameParam", sana+"%").setParameter("lajiParam", laji.getNimi());
         } else {
             q = em.createQuery("SELECT d FROM Drinkkiresepti d WHERE d.nimi LIKE :nameParam");
-            q.setParameter("nameParam", sanat+"%"); // etsii juomat, jotka alkavat kyseisellä mjonolla
+            q.setParameter("nameParam", sana+"%"); // etsii juomat, jotka alkavat kyseisellä mjonolla
         }
         return q.getResultList();
     }
     
-    // poistaa tietyn drinkin
+    /**
+     * Poistaa drinkkireseptin tietokannasta.
+     * 
+     * Metodille annetaan jonkin Drinkkiresepti-olion pääavain, jolla olio löydetään
+     * tietokannasta. Jotta poisto onnistuisi varmasti, tulee nollata kaikki viitteet
+     * drinkkiin siltä juomalajilta, johon drinkki kuuluu ja niiltä ainesosilta, jotka
+     * drinkkiin kuuluvat. Itse drinkkireseptiltä tulee myös nollata viitteet juomalajiinsa
+     * ja ainesosiinsa. Lopuksi drinkki poistetaan tietokannasta.
+     * @param drinkinId Poistettavan drinkkireseptin pääavain.
+     */
     public void poistaDrinkki(long drinkinId) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -172,6 +270,16 @@ public class Rekisteri {
         em.getTransaction().commit();  
     }
     
+    /**
+     * Poistaa tiettyyn drinkkireseptiin liittyvän arvostelun tietokannasta.
+     * 
+     * Metodille annetaan parametrina arvostelun pääavain, jonka avulla arvostelu
+     * löydetään tietokannasta. Tämän jälkeen poistetaan drinkkireseptiltä, jolle
+     * kyseinen arvostelu on tehty, viitteet itse arvosteluun. Arvostelulta myös
+     * poistetaan viitteet drinkkiin, jolle arvostelu on tehty. Lopuksi
+     * arvostelu poistetaan tietokannasta.
+     * @param arvosteluId Poistettavan arvostelun pääavain.
+     */
     public void poistaArvostelu(long arvosteluId) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -185,6 +293,15 @@ public class Rekisteri {
         em.getTransaction().commit();
     }
     
+    /**
+     * Poistaa juomalajin tietokannasta.
+     * 
+     * Metodille annetaan juomalajin pääavain, jolla poistettava juomalaji
+     * löydetään tietokannasta. Koska juomalajin voi poistaa vain, jos sillä
+     * ei ole mitään viitteitä mihinkään drinkkiresepteihin, sen voi huoletta
+     * poistaa suoraan tietokannasta.
+     * @param lajinId Poistettavan juomalajin pääavain.
+     */
     public void poistaJuomalaji(long lajinId) {
         em = getEntityManager();
         em.getTransaction().begin();
@@ -194,6 +311,33 @@ public class Rekisteri {
         em.getTransaction().commit();
     }
     
+    /**
+     * Poistaa ainesosan tietokannasta.
+     * 
+     * Metodille annetaan juomalajin pääavain (ainesosan nimi), jolla poistettava
+     * ainesosa löydetään tietokannasta. Koska ainesosan voi poistaa vain, jos sillä
+     * ei ole mitään viitteitä mihinkään drinkkiresepteihin, sen voi huoletta poistaa
+     * suoraan tietokannasta.
+     * @param ainesosanNimi Poistettavan ainesosan pääavain.
+     */
+    public void poistaAinesosa(String ainesosanNimi) {
+        em = getEntityManager();
+        em.getTransaction().begin();
+        Ainesosa poistettava = em.find(Ainesosa.class, ainesosanNimi);
+        em.remove(poistettava); // poistetaan
+        em.getTransaction().commit();
+    }
+    
+    /**
+     * Päivittää drinkin tiedot annetuilla parametreilla.
+     * 
+     * Metodille annetaan drinkkireseptin pääavain, jolla drinkki löydetään
+     * tietokannasta. Tämän jälkeen sille asetetaan uudet arvot tiettyihin
+     * drinkin attribuutteihin ja lisätään päivitettynä tietokantaan.
+     * @param drinkinId Päivitettävän drinkkireseptin pääavain.
+     * @param kuvaus Drinkkireseptin uusi kuvaus.
+     * @param ohjeet Drinkkireseptin uudet teko-ohjeet.
+     */
     public void paivitaDrinkki(long drinkinId, String kuvaus, String ohjeet) {
         em = getEntityManager();
         em.getTransaction().begin();

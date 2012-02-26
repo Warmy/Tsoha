@@ -56,6 +56,10 @@
         <servlet-name>PoistaJuomalajiServlet</servlet-name>
         <servlet-class>servlets.PoistaJuomalajiServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PoistaAinesosaServlet</servlet-name>
+        <servlet-class>servlets.PoistaAinesosaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LisaaKayttajaServlet</servlet-name>
         <url-pattern>/LisaaKayttaja</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>PoistaJuomalajiServlet</servlet-name>
         <url-pattern>/PoistaJuomalaji</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PoistaAinesosaServlet</servlet-name>
+        <url-pattern>/PoistaAinesosa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

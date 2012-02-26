@@ -16,12 +16,37 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Kenny Heinonen
  */
+
+/**
+ * Poistaa drinkkireseptin tietokannasta.
+ * 
+ */
 public class PoistaDrinkkiServlet extends HttpServlet {
     
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
 
+    /**
+     * Poistaa drinkkireseptin tietokannasta.
+     * 
+     * Kun admin on sivulla, jossa näytetään kyseisen poistettavan drinkin tiedot,
+     * siellä on nappi "Poista", jota hän painaa. Napin mukana annetaan parametrina
+     * drinkin pääavain. Pääavain annetaan Rekisteri-olion metodille, joka poistaa
+     * drinkkireseptin tietokannasta.
+     * 
+     * Lopuksi käyttäjä ohjataan Lista-servletille.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @see arkisto.Rekisteri#poistaDrinkki(long) 
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        if (!onKirjautunut(request, response)) // tarkistetaan onko adminina kirjautunut
+            return;
+        
         long drinkinId = Long.parseLong(request.getParameter("delete")); // napataan drinkin id  
         rekisteri.poistaDrinkki(drinkinId); // poistetaan drinkki tietokannasta
         
@@ -29,6 +54,24 @@ public class PoistaDrinkkiServlet extends HttpServlet {
                 request.getRequestDispatcher("/Lista"); // ohjataan pyyntö Lista-servletille
         dispatcher.forward(request, response);
         
+    }
+    
+    /**
+     * Tarkistaa, että käyttäjä on kirjautunut sisään adminina eli hänellä on istunto "meneillään".
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     * @return Tieto siitä onko kirjautunut vai ei.
+     */
+    private boolean onKirjautunut(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        String tunnus = (String) request.getSession().getAttribute("tunnus");
+        
+        if (tunnus != null && tunnus.equals("Admin")) { 
+            return true;
+        } else {                                                      // jos istunnon aikana ei ole kirjauduttu sisään
+            response.sendRedirect(request.getContextPath()+"/Lista"); // ohjataan takaisin kirjautumissivulle
+            return false;
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

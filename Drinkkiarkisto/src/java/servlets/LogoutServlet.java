@@ -5,7 +5,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +14,22 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
+ */
+
+/**
+ * Kirjaa käyttäjän ulos.
+ *
  */
 public class LogoutServlet extends HttpServlet {
 
+    /**
+     * Kirjaa käyttäjän ulos eli lopettaa tämän istunnon.
+     * Metodi nollaa kaikki tiedot istunnosta ja ohjaa käyttäjän
+     * "logout.jsp"-sivulle.
+     * @param request HTTP-pyyntö.
+     * @param response HTTP-vastaus.
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
