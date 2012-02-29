@@ -98,7 +98,7 @@ public class LisaaArvosteluServlet extends HttpServlet {
             rekisteri.lisaaArvostelu(uusi);
             response.sendRedirect(request.getContextPath()+"/DrinkinTiedot?id="+drinkinId); // ohjataan samalle sivulle
         } else {
-            request.setAttribute("virhe", "Et syöttänyt kaikkia tietoja!");
+            request.setAttribute("virhe", "Tietoja puuttuu tai arvostelusi ylitti sallitun maksimipituuden!");
             request.getRequestDispatcher("/DrinkinTiedot?id="+drinkinId).forward(request, response);
             return;
         }

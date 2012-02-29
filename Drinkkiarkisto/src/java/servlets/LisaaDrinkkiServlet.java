@@ -82,7 +82,6 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         nimi = estaCrossSiteScripting(nimi);
         kuvaus = estaCrossSiteScripting(kuvaus);
         ohjeet = estaCrossSiteScripting(ohjeet);
-        lajinId = estaCrossSiteScripting(lajinId);
         
         ArrayList<Ainesosa> lista = new ArrayList<Ainesosa>();
         if (ainesosa != null) {
@@ -97,9 +96,11 @@ public class LisaaDrinkkiServlet extends HttpServlet {
         if ((nimi.length() > 0 && nimi.length() <= 30) && (ohjeet.length() > 0 && ohjeet.length() <= 300) 
                 && lajinId != null && kuvaus.length() <= 300) { // jos drinkin nimi ja ohjeet löytyvät, tehdään uusi drinkki
             
-            long juomalajinId = Long.parseLong(request.getParameter("lajinId"));
+            lajinId = estaCrossSiteScripting(lajinId);
+            long juomalajinId = Long.parseLong(lajinId);
             // haetaan juomalaji, joka vastaa parametrina saatua lajin id:tä
             Juomalaji laji = rekisteri.haeJuomalaji(juomalajinId);
+            
             Drinkkiresepti resepti = new Drinkkiresepti(nimi, kuvaus, ohjeet);
             resepti.setLaji(laji); // asetetaan mihin lajiin drinkki kuuluu
             resepti.setAinesosat(lista); // lisätään ainesosat drinkille
