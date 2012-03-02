@@ -30,7 +30,7 @@ public class LisaaAinesosaServlet extends HttpServlet {
     private Rekisteri rekisteri = new Rekisteri();
 
     /**
-     * Ohjaa HTTP-pyynnön Lista-servletille.
+     * Ohjaa HTTP-pyynnön & vastauksen Lista-servletille.
      * 
      * @param request HTTP-pyyntö.
      * @param response HTTP-vastaus.
@@ -50,8 +50,9 @@ public class LisaaAinesosaServlet extends HttpServlet {
      * 
      * Kun admin-tunnuksilla sisään kirjautunut käyttäjä täyttää ainesosan lisäämistä
      * varten tarkoitetun lomakkeen sivulla "drinkkilista.jsp", tämä metodi käsittelee
-     * lomakkeen tiedot. Jos syöte on oikean pituinen, luodaan uusi ainesosa ja lisätään
-     * se Rekisteri-olion avulla tietokantaan. Jos syöte on väärän pituinen, ei tehdä mitään
+     * lomakkeen tiedot ja karsii siitä koodiupotukset. Jos syöte on oikean pituinen, 
+     * luodaan uusi ainesosa ja lisätään se Rekisteri-olion avulla tietokantaan. Jos 
+     * syöte on väärän pituinen, ei tehdä mitään
      * ja palautetaan käyttäjä takaisin samalla sivulle.
      * 
      * @param request HTTP-pyyntö.

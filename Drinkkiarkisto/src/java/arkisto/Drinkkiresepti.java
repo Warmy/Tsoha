@@ -225,7 +225,7 @@ public class Drinkkiresepti implements Serializable {
      * Asetetaan drinkille siihen kuuluvat ainesosat.
      * 
      * Kun drinkille lisätään siihen kuuluvat ainesosat, käydään samalla parametrina
-     * annettua ainesosa-listaa läpi ja kutsutaan kunkin Ainesosa-olion metodia
+     * annettua ainesosat-listaa läpi ja kutsutaan kunkin Ainesosa-olion metodia
      * getDrinkit(). Tämä metodi palauttaa listan drinkeistä, jotka "kuuluvat" tähän
      * ainesosaan. Jos kyseinen drinkki ei ole vielä Ainesosa-olion listassa, lisätäään
      * se sinne.

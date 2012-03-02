@@ -53,7 +53,7 @@ public class MuokkaaDrinkkiaServlet extends HttpServlet {
      * 
      * Kun admin on jonkin drinkkireseptin tieto-sivulla painanut lomaketta
      * "Muokkaa", se ohjautuu tälle servletille. Lomakkeen mukana annetaan
-     * drinkkireseptin id, jolla muokattava resepti löydetään tietokannasta.
+     * drinkkireseptin id, jolla muokattava drinkki löydetään tietokannasta.
      * 
      * Tämän jälkeen asetetaan pyynnön attribuuteiksi muokattava drinkki, lista
      * juomalajeista ja ainesosista ja ohjataan käyttäjä "muokkaa.jsp"-sivulle,
@@ -84,8 +84,8 @@ public class MuokkaaDrinkkiaServlet extends HttpServlet {
      * Muokkaa drinkin tietoja.
      * 
      * Kun admin on "muokkaa.jsp"-sivulla täyttänyt lomakkeisiin drinkin muokattavat
-     * tiedot, tämä metodi nappaa nämä tiedot ja käsittelee ne. Jos syötteet olivat
-     * oikean pituiset, niin Rekisteri-olion avulla päivitetään drinkkireseptille
+     * tiedot, tämä metodi nappaa nämä tiedot ja käsittelee ne. Jos syötteet menevät
+     * tarkistuksista läpi, niin Rekisteri-olion avulla päivitetään drinkkireseptille
      * nämä syötteet uusiksi tiedoiksi ja ohjataan käyttäjä drinkin tietosivulle, jossa
      * uusien päivitettyjen tietojen pitäisi näkyä.
      * 

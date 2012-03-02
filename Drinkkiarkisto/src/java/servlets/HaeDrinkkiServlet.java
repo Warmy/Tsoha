@@ -66,7 +66,8 @@ public class HaeDrinkkiServlet extends HttpServlet {
      * Kun käyttäjä syöttää "hae.jsp"-sivulla lomakkeeseen hakusanan, jolla
      * tiettyä drinkkiä/drinkkejä käyttäjä etsii, niin tämä metodi nappaa
      * lomakkeessa annetut tiedot eli hakusanan ja mahdollisen juomalajin.
-     * Tiedot syötetään Rekisteri-olion metodille, joka tekee kyselyn ja palauttaa
+     * Tiedoista karsitaan mahdolliset koodin upotukset. Tämän jälkeen
+     * tiedot syötetään Rekisteri-olion metodille, joka tekee kyselyn ja palauttaa
      * listan drinkkejä, jotka sopivat annettuihin tietoihin.
      * 
      * Tämän jälkeen ohjataan käyttäjä "hae.jsp"-sivulle, jossa löydetyt drinkit

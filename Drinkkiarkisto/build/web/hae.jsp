@@ -54,7 +54,7 @@
 
                 <c:if test="${not empty drinkit}">
                     <!-- Listaa drinkit -->
-                    <table border="1" width="360" cellpadding="3" cellspacing="1">
+                    <table border="1" width="360" cellpadding="3" cellspacing="1" style="background-color: white">
                         <tr>
                             <th>Nimi</th>
                             <th>Id</th>

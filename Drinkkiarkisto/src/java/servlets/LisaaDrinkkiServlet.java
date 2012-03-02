@@ -33,7 +33,7 @@ public class LisaaDrinkkiServlet extends HttpServlet {
     private Rekisteri rekisteri = new Rekisteri();
     
     /**
-     * Ohjaa HTTP-pyynnön Lista-servletille.
+     * Ohjaa HTTP-pyynnön & vastauksen Lista-servletille.
      * 
      * @param request HTTP-pyyntö.
      * @param response HTTP-vastaus.
@@ -52,13 +52,13 @@ public class LisaaDrinkkiServlet extends HttpServlet {
     /**
      * Lisää uuden drinkkireseptin tietokantaan lomakkeessa annettujen tietojen avulla.
      * 
-     * Kun kirjautunut käyttäjä menee "drinkkilista.jsp"-sivulle ja täyttää lomakkeen, jonka
+     * Kun kirjautunut käyttäjä täyttää lomakkeen "drinkkilista.jsp"-sivulla, jonka
      * avulla voi lisätä uuden reseptin, tämä metodi käsittelee lomakkeessa annetut tiedot.
      * Pakollisia tietoja ovat drinkkireseptin nimi, reseptiohjeet ja juomalaji. Jos syötteet
-     * ovat oikean pituisia, haetaan lomakkeessa annetun juomalajin id:n perusteella tietty juomalaji.
+     * menevät tarkistuksista läpi, haetaan lomakkeessa annetun juomalajin id:n perusteella tietty juomalaji.
      * Tämän jälkeen luodaan uusi Drinkkiresepti-olio, jolle asetetaan mihin juomalajiin se kuuluu ja
      * mitkä ainesosat reseptillä mahdollisesti on. Lopuksi resepti lisätään tietokantaan Rekisteri-olion
-     * avulla ja ohjataan käyttäjä "drinkkilista.jsp"-sivulle.
+     * avulla ja ohjataan komento Lista-servletille.
      * 
      * Jos tietoja puuttui tai jokin muu asia meni pieleen, ei tehdä mitään ja ohjataan käyttäjä takaisin
      * samalle sivulle.

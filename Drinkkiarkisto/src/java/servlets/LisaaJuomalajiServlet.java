@@ -30,7 +30,7 @@ public class LisaaJuomalajiServlet extends HttpServlet {
     private Rekisteri rekisteri = new Rekisteri();
     
     /**
-     * Ohjaa HTTP-pyynnön Lista-servletille.
+     * Ohjaa HTTP-pyynnön & vastauksen Lista-servletille.
      * @param request HTTP-pyyntö.
      * @param response HTTP-vastaus.
      * @see arkisto.ListaServlet
@@ -49,7 +49,7 @@ public class LisaaJuomalajiServlet extends HttpServlet {
      * 
      * Kun admin-tunnuksilla sisään kirjautunut käyttäjä täyttää juomalajin lisäämistä
      * varten tarkoitetun lomakkeen sivulla "drinkkilista.jsp", tämä metodi käsittelee
-     * lomakkeen tiedot. Jos syöte on oikean pituinen, luodaan uusi Juomalaji-olio ja lisätään
+     * lomakkeen tiedot. Jos syöte menee tarkistuksista läpi, luodaan uusi Juomalaji-olio ja lisätään
      * se Rekisteri-olion avulla tietokantaan ja ohjataan käyttäjä Lista-servletille.
      * Jos tiedot olivat väärin, ei tehdä mitään ja ohjataan käyttäjä takaisin samalle sivulle.
      * 

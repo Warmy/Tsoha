@@ -20,7 +20,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ListaServlet extends HttpServlet {
 
+    /**
+     * Tietokantaoperaatioita hoitava olio.
+     */
     private Rekisteri rekisteri = new Rekisteri();
+    
+    /**
+     * Käytetään drinkkilistan järjestämiseen. Riippuen muuttujan arvosta
+     * drinkkilista järjestetään joko nousevasti tai laskevasti nimen/juomalajin
+     * perusteella.
+     */
     private boolean jarjestys = true;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,8 +39,8 @@ public class ListaServlet extends HttpServlet {
     /**
      * Kun käyttäjä menee "drinkkilista.jsp"-sivulle, käydään tässä servletissä ensin.
      * Jos käyttäjä on kirjautunut sisään, luodaan attribuutti, jolla annetaan sivulla
-     * oikeus lisätä uusia drinkkejä. Jos on kirjautunut adminina sisään, luodaan attribuutti,
-     * jolla annetaan oikeus lisätä/poistaa juomalajeja & ainesosia.
+     * oikeus lisätä uusia drinkkejä. Jos on kirjautunut adminina sisään, luodaan lisäksi
+     * attribuutti, jolla annetaan oikeus lisätä/poistaa juomalajeja & ainesosia.
      * 
      * Jos kyseisellä sivulla käyttäjä painoi lomaketta, jolla järjestetään listatut
      * drinkkireseptit nimen tai juomalajin mukaan, tehdään se. Joka tapauksessa
@@ -50,8 +59,8 @@ public class ListaServlet extends HttpServlet {
             request.setAttribute("lisays", "lisaa");
             
             String tunnus = (String) request.getSession().getAttribute("tunnus");
-            if (tunnus.equals("Admin")) // jos kirjautunut käyttäjä on admin, annetaan valtuudet
-                request.setAttribute("AdminRights", "AdminOK"); // lisätä juomalajeja ja ainesosia
+            if (tunnus.equals("Admin"))
+                request.setAttribute("AdminRights", "AdminOK");
         }
         
         if (request.getParameter("sortByName") == null && request.getParameter("sortByCategory") == null)
@@ -81,11 +90,11 @@ public class ListaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.sendRedirect(request.getRequestURI()); // POST-pyynnöt ohjataan doGetille, esim LisaaKayttajan doPost ohjaa
+         response.sendRedirect(request.getRequestURI()); // POST-pyynnöt ohjataan doGetille, esim Loginin doPost ohjaa
     }                                                   // pyynnön tämän servletin doPost-metodiin, joka ohjaa sen doGet:iin
     
     /**
-     * Järjestää drinkkilistan nimen perusteella nousevaan tai laskevaan järjestykseen.
+     * Järjestää drinkkilistan drinkkien nimien perusteella nousevaan tai laskevaan järjestykseen.
      * 
      * Jos boolean-muuttuja jarjestys on true, palautetaan lista drinkeistä nimen perusteella
      * laskevassa järjestyksessä ja asetetaan jarjestys = false, jolloin seuraavalla kerralla, kun
@@ -100,13 +109,13 @@ public class ListaServlet extends HttpServlet {
             request.setAttribute("juomat", rekisteri.getOrderedJuomat()); // juomat laskevasti
             jarjestys = false;
         } else if (request.getParameter("sortByName") != null && !jarjestys) { // jos juomat on jo järjestetty laskevasti ja painetaan
-            request.setAttribute("juomat", rekisteri.getJuomat()); // nappia sort, palautetaan alkuperäinen järjestys
+            request.setAttribute("juomat", rekisteri.getJuomat()); // nappia sort, palautetaan nouseva järjestys
             jarjestys = true;
         }  
     }
 
     /**
-     * Järjestää drinkkilistan juomalajin perusteella nousevaan tai laskevaan järjestykseen.
+     * Järjestää drinkkilistan drinkkien juomalajien perusteella nousevaan tai laskevaan järjestykseen.
      * 
      * Jos boolean-muuttuja jarjestys on true, palautetaan lista drinkeistä juomalajin perusteella
      * nousevassa järjestyksessä ja asetetaan jarjestys = false, jolloin seuraavalla kerralla, kun

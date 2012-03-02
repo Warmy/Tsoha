@@ -30,8 +30,8 @@ public class PoistaArvosteluServlet extends HttpServlet {
      * Poistaa arvostelun tietokannasta.
      * 
      * Kun admin painaa "Poista"-nappia sivulla, jossa näytetään tietyn drinkin
-     * tiedot ja siihen liittyvät arvostelut, tullaan tähän servletiin. Nappia
-     * painaessa annetaan parametrina arvostelun pääavain.
+     * tiedot (generoitu "tiedot.jsp"-sivu) ja siihen liittyvät arvostelut, tullaan
+     * tähän servletiin. Nappia painaessa annetaan parametrina arvostelun pääavain.
      * 
      * Poistettavan arvostelun pääavaimella voidaan Rekisteri-olion avulla poistaa
      * arvostelu tietokannasta. Lopuksi ohjataan käyttäjä takaisin samalle sivulle.
@@ -45,8 +45,8 @@ public class PoistaArvosteluServlet extends HttpServlet {
         if (!onKirjautunut(request, response)) // tarkistetaan onko adminina kirjautunut
             return;
         
-        long arvosteluId = Long.parseLong(request.getParameter("delete")); // napataan drinkin id  
-        rekisteri.poistaArvostelu(arvosteluId); // poistetaan drinkki tietokannasta
+        long arvosteluId = Long.parseLong(request.getParameter("delete")); // napataan arvostelun id  
+        rekisteri.poistaArvostelu(arvosteluId); // poistetaan arvostelu tietokannasta
         
         long drinkinId = Long.parseLong(request.getParameter("drinkinId"));
         response.sendRedirect(request.getContextPath()+"/DrinkinTiedot?id="+drinkinId);

@@ -48,7 +48,7 @@ public class PoistaJuomalajiServlet extends HttpServlet {
         if (!onKirjautunut(request, response)) // tarkistetaan onko adminina kirjautunut
             return;
         
-        long lajinId = Long.parseLong(request.getParameter("id")); // napataan drinkin id  
+        long lajinId = Long.parseLong(request.getParameter("id")); // napataan juomalajin id  
         Juomalaji laji = rekisteri.haeJuomalaji(lajinId);
         
         if (laji.getDrinkit().isEmpty())

@@ -7,7 +7,6 @@ package servlets;
 import arkisto.Ainesosa;
 import arkisto.Rekisteri;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +52,7 @@ public class PoistaAinesosaServlet extends HttpServlet {
         Ainesosa aines = rekisteri.haeAinesosa(ainesosa);
         
         if (aines.getDrinkit().isEmpty())
-            rekisteri.poistaAinesosa(ainesosa); // poistetaan juomalaji tietokannasta, jos siihen ei kuulu mitään drinkkejä
+            rekisteri.poistaAinesosa(ainesosa); // poistetaan ainesosa tietokannasta, jos siihen ei kuulu mitään drinkkejä
         
         response.sendRedirect(request.getContextPath()+"/Lista");
     }

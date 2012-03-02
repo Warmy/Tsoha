@@ -139,7 +139,7 @@ public class Arvostelu implements Serializable {
      * 
      * Metodi asettaa mille drinkille arvostelu on tehty ja koska Drinkkiresepti-oliolla
      * on lista siihen kuuluvista arvosteluista, niin metodi tarkistaa samalla onko
-     * tämä uusi arvostelu vielä kyseisellä drinkillä muistissa. Jos ei ole, lisätään
+     * tämä uusi arvostelu vielä kyseisellä drinkillä tallessa. Jos ei ole, lisätään
      * tämä arvostelu drinkin arvostelujen listaan.
      * 
      * @see arkisto.Drinkkiresepti#getArvostelut() 

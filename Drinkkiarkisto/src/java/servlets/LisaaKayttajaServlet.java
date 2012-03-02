@@ -49,12 +49,12 @@ public class LisaaKayttajaServlet extends HttpServlet {
      * 
      * Kun käyttäjä täyttää uuden käyttäjätunnuksen lisäämistä
      * varten tarkoitetun lomakkeen sivulla "register.jsp", tämä metodi käsittelee
-     * lomakkeen tiedot. Jos syötteet ovat oikean pituisia ja tunnusta ei ole vielä olemassa,
+     * lomakkeen tiedot. Jos syötteet menevät tarkistuksista läpi ja tunnusta ei ole vielä olemassa,
      * luodaan uusi Kayttaja-olio ja lisätään se Rekisteri-olion avulla tietokantaan ja
      * lopuksi ohjataan käyttäjä samalle sivulle.
      * 
-     * Jos tiedot olivat väärin, luodaan virheilmoitus ja ohjataan käyttäjä takaisin samalle sivulle,
-     * jossa virheilmoitus näytetään.
+     * Jos tiedot olivat väärin tai tunnus on jo olemassa, luodaan virheilmoitus
+     * ja ohjataan käyttäjä takaisin samalle sivulle, jossa virheilmoitus näytetään.
      * 
      * @param request HTTP-pyyntö.
      * @param response HTTP-vastaus.

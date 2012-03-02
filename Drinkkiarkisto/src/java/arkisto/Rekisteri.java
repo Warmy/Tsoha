@@ -12,7 +12,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Keni
+ * @author Kenny Heinonen
  */
 
 /**
@@ -61,7 +61,7 @@ public class Rekisteri {
      * 
      * Mergen avulla päivitetään myös drinkkireseptin tila tietokannassa,
      * koska drinkille lisättiin uusi arvostelu (eli arvostelulla on viite
-     * drinkkireseptiin).
+     * drinkkireseptiin ja toisinpäin).
      * @param uusi Uusi arvostelu.
      */
     public void lisaaArvostelu(Arvostelu uusi) {
@@ -109,7 +109,7 @@ public class Rekisteri {
     }
     
     /**
-     * Lista drinkeistä, jotka on järjestetty nousevasti juomalajin nimen perusteella.
+     * Lista drinkeistä, jotka on järjestetty nousevasti drinkkien juomalajien nimen perusteella.
      * @return Järjestetty lista drinkkiresepteistä.
      */
     public List<Drinkkiresepti> sortJuomatByLajitAsc() {
@@ -118,7 +118,7 @@ public class Rekisteri {
     }
     
     /**
-     * Lista drinkeistä, jotka on järjestetty laskevasti juomalajin nimen perusteella.
+     * Lista drinkeistä, jotka on järjestetty laskevasti drinkkien juomalajien nimen perusteella.
      * @return Järjestetty lista drinkkiresepteistä.
      */
     public List<Drinkkiresepti> sortJuomatByLajitDesc() {
@@ -299,7 +299,9 @@ public class Rekisteri {
      * Metodille annetaan juomalajin pääavain, jolla poistettava juomalaji
      * löydetään tietokannasta. Koska juomalajin voi poistaa vain, jos sillä
      * ei ole mitään viitteitä mihinkään drinkkiresepteihin, sen voi huoletta
-     * poistaa suoraan tietokannasta.
+     * poistaa suoraan tietokannasta. (PoistaJuomalajiServlet.java on huolehtinut,
+     * että tätä metodia voidaan kutsua vain, jos juomalajiin ei kuulu mitään
+     * drinkkejä)
      * @param lajinId Poistettavan juomalajin pääavain.
      */
     public void poistaJuomalaji(long lajinId) {
@@ -314,10 +316,12 @@ public class Rekisteri {
     /**
      * Poistaa ainesosan tietokannasta.
      * 
-     * Metodille annetaan juomalajin pääavain (ainesosan nimi), jolla poistettava
+     * Metodille annetaan ainesosan pääavain (ainesosan nimi), jolla poistettava
      * ainesosa löydetään tietokannasta. Koska ainesosan voi poistaa vain, jos sillä
      * ei ole mitään viitteitä mihinkään drinkkiresepteihin, sen voi huoletta poistaa
-     * suoraan tietokannasta.
+     * suoraan tietokannasta. (PoistaAinesosaServlet.java on huolehtinut,
+     * että tätä metodia voidaan kutsua vain, jos ainesosa ei kuulu mihinkään
+     * drinkkiin)
      * @param ainesosanNimi Poistettavan ainesosan pääavain.
      */
     public void poistaAinesosa(String ainesosanNimi) {

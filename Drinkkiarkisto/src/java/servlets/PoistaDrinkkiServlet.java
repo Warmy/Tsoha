@@ -31,10 +31,10 @@ public class PoistaDrinkkiServlet extends HttpServlet {
     /**
      * Poistaa drinkkireseptin tietokannasta.
      * 
-     * Kun admin on sivulla, jossa näytetään kyseisen poistettavan drinkin tiedot,
-     * siellä on nappi "Poista", jota hän painaa. Napin mukana annetaan parametrina
-     * drinkin pääavain. Pääavain annetaan Rekisteri-olion metodille, joka poistaa
-     * drinkkireseptin tietokannasta.
+     * Kun admin on sivulla, jossa näytetään kyseisen poistettavan drinkin tiedot 
+     * (generoitu "tiedot.jsp"-sivu), siellä on nappi "Poista", jota hän painaa. 
+     * Napin mukana annetaan parametrina drinkin pääavain. Pääavain annetaan 
+     * Rekisteri-olion metodille, joka poistaa drinkkireseptin tietokannasta.
      * 
      * Lopuksi käyttäjä ohjataan Lista-servletille.
      * @param request HTTP-pyyntö.
