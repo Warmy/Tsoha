@@ -1,7 +1,7 @@
 <%-- 
     Document   : hae
     Created on : Feb 21, 2012, 4:46:33 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

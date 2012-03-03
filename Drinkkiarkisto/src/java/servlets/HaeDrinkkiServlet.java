@@ -81,6 +81,8 @@ public class HaeDrinkkiServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String sana = request.getParameter("sana");
         String lajinId = request.getParameter("lajinId");
         

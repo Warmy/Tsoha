@@ -1,7 +1,7 @@
 <%-- 
     Document   : drinkkilista
     Created on : Feb 4, 2012, 10:14:48 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

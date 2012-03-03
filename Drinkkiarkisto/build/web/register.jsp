@@ -1,7 +1,7 @@
 <%-- 
     Document   : register
     Created on : Feb 4, 2012, 6:47:21 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -55,7 +55,8 @@
                   action="${pageContext.request.contextPath}/LisaaKayttaja"
                   method="post">            
                 <b>Käyttäjätunnus:</b> </br> <input type="text" name="tunnus"/> <br/>             
-                <b>Salasana:</b> </br> <input type="password" name="salasana"/> <br/>              
+                <b>Salasana:</b> </br> <input type="password" name="salasana"/> <br/>   
+                <b>Vahvista salasana:</b> </br> <input type="password" name="vahvistus"/> <br/>
                 <input type="submit" value="Rekisteröidy"/>
             </form>
 
@@ -67,14 +68,8 @@
             <c:if test="${not empty virhe2}">
                 <font color="red">${virhe2}</font>
             </c:if>
-
-            <!-- listaa käyttäjät, jos heitä on //-->
-            <h2>Käyttäjät</h2>
-            <c:if test="${not empty kayttajat}">                        
-                <c:forEach var="kayttaja" items="${kayttajat}">
-                    Tunnus: ${kayttaja.tunnus}, salasana: ${kayttaja.salasana}</br>
-                </c:forEach>
-            </c:if>
+                  
+                <font color="green">${registerOK}</font>
         </div>
     </div>
 </body>

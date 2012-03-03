@@ -1,7 +1,7 @@
 <%-- 
     Document   : logout
     Created on : Feb 5, 2012, 12:56:51 AM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

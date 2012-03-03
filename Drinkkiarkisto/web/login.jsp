@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : Feb 4, 2012, 9:27:47 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

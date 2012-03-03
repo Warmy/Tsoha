@@ -1,7 +1,7 @@
 <%-- 
     Document   : tiedot
     Created on : Feb 11, 2012, 12:44:01 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

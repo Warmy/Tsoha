@@ -62,6 +62,7 @@ public class LisaaAinesosaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         
         String ainesosa = request.getParameter("aines"); // napataan lomakkeesta ainesosan nimi
         ainesosa = estaCrossSiteScripting(ainesosa);

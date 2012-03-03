@@ -28,6 +28,12 @@ public class LisaaKayttajaServlet extends HttpServlet {
      * Tietokantaoperaatioita hoitava olio.
      */
     private Rekisteri rekisteri = new Rekisteri();
+    
+    /**
+     * Boolean-muuttuja, joka kertoo onnistuiko "register.jsp":llä
+     * rekisteröityminen uudeksi käyttäjäksi.
+     */
+    private boolean onnistuikoRekisterointi = false;
 
     /**
      * Ohjaa käyttäjän "register.jsp"-sivulle.
@@ -37,7 +43,13 @@ public class LisaaKayttajaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("kayttajat", new Rekisteri().getKayttajat()); // annetaan pyynnön attribuutiksi lista käyttäjistä
+    
+        // jos rekisteröinti onnistui doPost():ssa, annetaan ilmoitus siitä
+        // sivulla
+        if (onnistuikoRekisterointi) {
+            request.setAttribute("registerOK", "Rekisteröityminen onnistui!");
+            onnistuikoRekisterointi = false;
+        }
         
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("register.jsp");
@@ -51,7 +63,8 @@ public class LisaaKayttajaServlet extends HttpServlet {
      * varten tarkoitetun lomakkeen sivulla "register.jsp", tämä metodi käsittelee
      * lomakkeen tiedot. Jos syötteet menevät tarkistuksista läpi ja tunnusta ei ole vielä olemassa,
      * luodaan uusi Kayttaja-olio ja lisätään se Rekisteri-olion avulla tietokantaan ja
-     * lopuksi ohjataan käyttäjä samalle sivulle.
+     * lopuksi ohjataan käyttäjä samalle sivulle ja annetaan ilmoitus rekisteröitymisen
+     * onnistumisesta.
      * 
      * Jos tiedot olivat väärin tai tunnus on jo olemassa, luodaan virheilmoitus
      * ja ohjataan käyttäjä takaisin samalle sivulle, jossa virheilmoitus näytetään.
@@ -63,23 +76,28 @@ public class LisaaKayttajaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         String tunnus = request.getParameter("tunnus");
         String salasana = request.getParameter("salasana");
+        String vahvistus = request.getParameter("vahvistus");
         
         tunnus = estaCrossSiteScripting(tunnus);
         salasana = estaCrossSiteScripting(salasana);
+        vahvistus = estaCrossSiteScripting(vahvistus);
         
         if (onkoTunnusJoOlemassa(tunnus, request, response))
             return;
             
-        // tunnuksen ja salasanan pituuden tarkistus
-        if ((tunnus.length() > 3 && tunnus.length() <= 15) && (salasana.length() > 3 && salasana.length() <= 30)) {
+        if ((tunnus.length() > 3 && tunnus.length() <= 15) && (salasana.length() > 3 && salasana.length() <= 30) &&
+                (vahvistus.equals(salasana))) {
         
         Kayttaja uusi = new Kayttaja(tunnus, salasana); // luodaan lomakkeen tietojen perusteella uusi käyttäjä
         rekisteri.lisaaKayttaja(uusi); // lisätään se tietokantaan
+        onnistuikoRekisterointi = true;
         response.sendRedirect(request.getRequestURI()); // ohjataan pyyntö samalle sivulle
         } else {
-            request.setAttribute("virhe2", "Et antanut kelvollisen pituisia syötteitä!");
+            request.setAttribute("virhe2", "Et antanut kelvollisia syötteitä!");
             doGet(request, response);
             return; // jos huono tunnus tai salasana, palataan sivulle ja näytetään virheilmoitus
         }

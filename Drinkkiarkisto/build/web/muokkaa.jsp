@@ -1,7 +1,7 @@
 <%-- 
     Document   : muokkaa
     Created on : Feb 17, 2012, 5:26:59 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

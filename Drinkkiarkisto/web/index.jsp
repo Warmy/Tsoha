@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Feb 4, 2012, 6:46:03 PM
-    Author     : Keni
+    Author     : Kenny Heinonen
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
